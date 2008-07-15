@@ -58,10 +58,20 @@ class LinkCheckerTest(LinkCheckerTestCase):
         ob = makeContent(self.portal, portal_type="Link", id="asdf")
         ob.edit(url)
 
-        links = retrievers.Link(ob).retrieveLinks()
+        retriever = retrievers.Link(ob)
+        links = retriever.retrieveLinks()
 
         self.assertEqual(len(links), 1)
         self.assertEqual(links[0], url)
+
+        # The retriever can also update the URL
+        retriever.updateLink(url, 'http://www.foobar.org')
+        self.assertEquals(ob.getRemoteUrl(), 'http://www.foobar.org')
+
+        # If the URL doesn't match, the link won't be updated
+        retriever.updateLink(url, 'http://www.quux.org')
+        self.assertEquals(ob.getRemoteUrl(), 'http://www.foobar.org')
+
 
     def test_document_html_retriever(self):
         self.loginAsPortalOwner()
