@@ -30,7 +30,8 @@ class LinkCheckerTest(LinkCheckerTestCase):
         event.edit(event_url=url)
         event.setText(text)
 
-        links = retrievers.Event(event).retrieveLinks()
+        retriever = retrievers.Event(event)
+        links = retriever.retrieveLinks()
 
         self.assertEqual(len(links), 5)
         self.assertEqual(links[0], url)
@@ -39,6 +40,15 @@ class LinkCheckerTest(LinkCheckerTestCase):
         links = retrievers.ATGeneral(event).retrieveLinks()
         self.assertEqual(links[0], "http://www.google.de/img.png")
         self.assertEqual(len(links), 4)
+
+        # The retriever can also update the URL
+        retriever.updateLink(url, 'http://foobar.org')
+        self.assertEquals(event.event_url(), 'http://foobar.org')
+
+        # If the URL to replace does not match, it doesn't change the URL of
+        # the event:
+        retriever.updateLink('blubb', 'http://quux.org')
+        self.assertEquals(event.event_url(), 'http://foobar.org')
 
     def test_link_retriever(self):
         self.loginAsPortalOwner()

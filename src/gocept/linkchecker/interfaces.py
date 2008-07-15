@@ -233,16 +233,12 @@ class IRetriever(Interface):
     an object.
     """
 
-    name = Attribute("Name of the retriever, suitable to identify it.")
-    defaults = Attribute(
-        "A list of portal_types this retriever is a default for.")
-
-    def retrieveLinks(self, object):
+    def retrieveLinks():
         """Finds all links from the object and return them.
 
            Returns a list of URLs.
 
         """
 
-    def updateLink(self, oldurl, newurl, object):
+    def updateLink(oldurl, newurl):
         """Replace all occurances of <oldurl> on object with <newurl>."""
