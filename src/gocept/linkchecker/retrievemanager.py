@@ -68,7 +68,7 @@ class RetrieveManager(SimpleItem):
             raise Unauthorized, "You can't update links for this object."
         retriever = gocept.linkchecker.interfaces.IRetriever(object, None)
         if retriever is not None:
-            retriever.updateLink(old_link, new_link, object)
+            retriever.updateLink(old_link, new_link)
         self.retrieveObject(object)
 
     security.declareProtected(ManagePortal, 'retrieveSite')
@@ -105,12 +105,8 @@ class RetrieveManager(SimpleItem):
 
     def supportsRetrieving(self, object):
         """Tells if the object is supported for retrieving links."""
-        try:
-            retriever = IRetriever(object)
-        except LookupError:
-            return False
-        else:
-            return True
+        retriever = gocept.linkchecker.interfaces.IRetriever(object, None)
+        return bool(retriever)
 
 
 InitializeClass(RetrieveManager)
