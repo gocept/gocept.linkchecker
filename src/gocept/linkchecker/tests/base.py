@@ -10,21 +10,23 @@ from Products.PloneTestCase.setup import default_password, portal_owner
 
 @onsetup
 def setup_linkchecker_policy():
+    ztc.installProduct('Five')
+
     fiveconfigure.debug_mode = True
-    import Products.CMFLinkChecker
-    zcml.load_config('configure.zcml', Products.CMFLinkChecker)
+    import gocept.linkchecker
+    zcml.load_config('configure.zcml', gocept.linkchecker)
     fiveconfigure.debug_mode = False
 
-    ztc.installProduct("ZCatalog")
-    ztc.installProduct("CMFLinkChecker")
+    ztc.installPackage('gocept.linkchecker')
+    ztc.installProduct('ZCatalog')
 
 setup_linkchecker_policy()
-ptc.setupPloneSite(products=['Products.CMFLinkChecker'])
+ptc.setupPloneSite(products=['gocept.linkchecker'])
 
 
-class CMFLinkCheckerTestCase(ptc.FunctionalTestCase):
+class LinkCheckerTestCase(ptc.FunctionalTestCase):
 
     def __init__(self, *args, **kw):
-        super(CMFLinkCheckerTestCase, self).__init__(*args, **kw)
+        super(LinkCheckerTestCase, self).__init__(*args, **kw)
         self.portal_owner = portal_owner
         self.default_password = default_password

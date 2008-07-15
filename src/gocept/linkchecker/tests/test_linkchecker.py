@@ -5,15 +5,15 @@
 import Acquisition
 from Products.CMFCore.utils import getToolByName
 from Products.Archetypes.tests.test_sitepolicy import makeContent
-from Products.CMFLinkChecker.tests.base import CMFLinkCheckerTestCase
-from Products.CMFLinkChecker.interfaces import ILink
+from gocept.linkchecker.tests.base import LinkCheckerTestCase
+from gocept.linkchecker.interfaces import ILink
 
 import time
 import unittest
 import zope.lifecycleevent
 
 
-class CMFLinkCheckerTest(CMFLinkCheckerTestCase):
+class LinkCheckerTest(LinkCheckerTestCase):
 
     def test_link_registration(self):
         self.loginAsPortalOwner()
@@ -130,5 +130,5 @@ class CMFLinkCheckerTest(CMFLinkCheckerTestCase):
 
 def test_suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(CMFLinkCheckerTest))
+    suite.addTest(unittest.makeSuite(LinkCheckerTest))
     return suite

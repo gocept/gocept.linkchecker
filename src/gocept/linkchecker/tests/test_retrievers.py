@@ -10,14 +10,13 @@ from Products.Archetypes.tests.utils import *
 from Products.Archetypes.tests.test_sitepolicy import makeContent
 from Products.CMFCore.utils import getToolByName
 
-from Products.CMFLinkChecker.retrievers import RetrieverEvent, \
+from gocept.linkchecker.retrievers import RetrieverEvent, \
         RetrieverLink, RichTextRetriever
 
-from Products.CMFLinkChecker.tests.base import \
-    CMFLinkCheckerTestCase
+from gocept.linkchecker.tests.base import LinkCheckerTestCase
 
 
-class CMFLinkCheckerTest(CMFLinkCheckerTestCase):
+class LinkCheckerTest(LinkCheckerTestCase):
 
     def test_event_retriever(self):
         self.loginAsPortalOwner()
@@ -96,5 +95,5 @@ class CMFLinkCheckerTest(CMFLinkCheckerTestCase):
 
 def test_suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(CMFLinkCheckerTest))
+    suite.addTest(unittest.makeSuite(LinkCheckerTest))
     return suite

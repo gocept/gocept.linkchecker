@@ -2,11 +2,11 @@
 Link State Definitions
 ======================
 
-The following state names are defined for the use within CMFLinkChecker. They
-are protocol independent.
+The following state names are defined for the use within gocept.linkchecker.
+They are protocol independent.
 
 green
-    Means everything is ok with this link, nothing to worry about¿ The link
+    Means everything is ok with this link, nothing to worry about. The link
     will work as expected by the author.
 
 orange

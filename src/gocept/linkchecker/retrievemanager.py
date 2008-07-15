@@ -1,9 +1,7 @@
 # Copyright (c) 2003-2005 gocept gmbh & co. kg
 # See also LICENSE.txt
 # $Id$
-"""CMF link checker tool - retrieve manager
-
-"""
+"""Retrieve manager."""
 
 # Zope imports
 import transaction
@@ -21,9 +19,8 @@ from Products.CMFCore.permissions import ManagePortal
 from Products.CMFCore.permissions import ModifyPortalContent
 from Products.CMFCore.utils import getToolByName
 
-# CMFLinkChecker imports
-from Products.CMFLinkChecker.interfaces import IGlobalRetrieverRegistry
-from Products.CMFLinkChecker.interfaces import IRetrieveManager
+from gocept.linkchecker.interfaces import IGlobalRetrieverRegistry
+from gocept.linkchecker.interfaces import IRetrieveManager
 
 
 def manage_addRetrieveManager(container, id):
@@ -146,7 +143,7 @@ class RetrieveManager(SimpleItem):
                 i = 0
                 for ob in objects:
                     i += 1
-                    zLOG.LOG("CMFLinkChecker", zLOG.BLATHER,
+                    zLOG.LOG("gocept.linkchecker", zLOG.BLATHER,
                              "Site Crawl Status",
                              "%s of %s (%s)" % (i, os_, ob.getPath()))
                     ob = ob.getObject()
@@ -204,7 +201,7 @@ class GlobalRegistry(object):
            Returns None
         """
         if self._retrievers.has_key(retriever.name):
-            zLOG.LOG('CMFLinkChecker', zLOG.INFO,
+            zLOG.LOG('gocept.linkchecker', zLOG.INFO,
                      "Retriever '%s' is already registered." % retriever.name)
         self._retrievers[retriever.name] = retriever
        

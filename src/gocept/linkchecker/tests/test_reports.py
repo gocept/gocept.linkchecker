@@ -11,8 +11,7 @@ from Products.Archetypes.tests.utils import *
 
 import Acquisition
 
-from Products.CMFLinkChecker.tests.base import \
-    CMFLinkCheckerTestCase
+from gocept.linkchecker.tests.base import LinkCheckerTestCase
 
 from Products.CMFCore.utils import getToolByName
 
@@ -25,7 +24,7 @@ class Dummy(Acquisition.Implicit):
         self.started = True
         
 
-class LinkCheckerReportTest(CMFLinkCheckerTestCase):
+class LinkCheckerReportTest(LinkCheckerTestCase):
 
     def test_ManagementOverview(self):
         lc = getToolByName(self.portal, 'portal_linkchecker')

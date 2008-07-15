@@ -9,6 +9,7 @@ import socket
 from xmlrpclib import ServerProxy, Fault
 
 # Zope imports
+import Products.Archetypes.interfaces
 from Products.BTreeFolder2.BTreeFolder2 import BTreeFolder2
 from AccessControl import getSecurityManager, ClassSecurityInfo
 from Globals import InitializeClass
@@ -18,13 +19,14 @@ import zLOG
 # CMF/Plone imports
 from Products.CMFCore import permissions
 
-# CMFLinkChecker imports
-import Products.CMFLinkChecker.link
-import Products.CMFLinkChecker.url
-import Products.CMFLinkChecker.utils
-from Products.CMFLinkChecker.interfaces import ILinkDatabase
-from Products.CMFLinkChecker import permissions, config
+import gocept.linkchecker.link
+import gocept.linkchecker.url
+import gocept.linkchecker.utils
+from gocept.linkchecker.interfaces import ILinkDatabase
+from gocept.linkchecker import permissions
 
+PROTOCOL_VERSION = 2
+WEBSERVICE = "http://lms.gocept.com/v2"
 
 WEBSERVICE_STATEMAP = {
     "unknown" : "grey",
@@ -69,7 +71,7 @@ class LinkDatabase(BTreeFolder2):
 
     defaultURLPrefix = ""
 
-    webservice = config.WEBSERVICE
+    webservice = WEBSERVICE
     clientid = "change_me"
     password = ""
 
@@ -168,16 +170,16 @@ class LinkDatabase(BTreeFolder2):
         self._updateWSRegistrations()
 
     def _register_link(self, link, object):
-        link_id = Products.CMFLinkChecker.utils.hash_link(link, object)
+        link_id = gocept.linkchecker.utils.hash_link(link, object)
         if link_id in self.objectIds():
             return
-        link = Products.CMFLinkChecker.link.Link(link, link_id, object.UID())
+        link = gocept.linkchecker.link.Link(link, link_id, object.UID())
         # Make sure the URL object exists before we trigger indexing
         # and such
-        url = Products.CMFLinkChecker.utils.resolveRelativeLink(link.link, object)
-        url_id = Products.CMFLinkChecker.utils.hash_url(url)
+        url = gocept.linkchecker.utils.resolveRelativeLink(link.link, object)
+        url_id = gocept.linkchecker.utils.hash_url(url)
         if url_id not in self.objectIds():
-            url = Products.CMFLinkChecker.url.URL(url)
+            url = gocept.linkchecker.url.URL(url)
             self._setObject(url_id, url)
         # Now we can add the link to the database 
         self._setObject(link_id, link)
@@ -200,7 +202,7 @@ class LinkDatabase(BTreeFolder2):
         states = lms.registerManyLinks(unregistered)
         for url, state, reason in states:
             state = WEBSERVICE_STATEMAP[state]
-            url = self[Products.CMFLinkChecker.utils.hash_url(url)]
+            url = self[gocept.linkchecker.utils.hash_url(url)]
             url.registered = True
             url.updateStatus(state, reason)
 
@@ -213,7 +215,7 @@ class LinkDatabase(BTreeFolder2):
 
            Returns None.
         """
-        id = Products.CMFLinkChecker.utils.hash_link(link)
+        id = gocept.linkchecker.utils.hash_link(link)
         self.manage_delObject(id)
 
     security.declarePrivate('unregisterObject')
@@ -236,7 +238,7 @@ class LinkDatabase(BTreeFolder2):
         if conn.ok:
             client = self._get_connection_object()
         else:
-            zLOG.LOG('CMFLinkChecker', zLOG.ERROR,
+            zLOG.LOG('gocept.linkchecker', zLOG.ERROR,
                      'Connection to LMS not possible: %s' % (conn.error, ))
             if self.offline:
                 client = offline_webservice
@@ -415,7 +417,7 @@ class LinkDatabase(BTreeFolder2):
         else:
             ok, protocol_version, error = server.checkConnection()
         r = R(ok=ok, error=error,
-              client_protocol=config.PROTOCOL_VERSION,
+              client_protocol=PROTOCOL_VERSION,
               server_protocol=protocol_version)
         return r
 
@@ -511,12 +513,12 @@ class LMSClient:
         except Exception, e:
             error = str(e)
         else:
-            if protocol_version == config.PROTOCOL_VERSION:
+            if protocol_version == PROTOCOL_VERSION:
                is_ok = True 
             else:
-               error = "Incompatible protocol version. "\
-                       "Got: %s, expected: %s" %(protocol_version,
-                                                 config.PROTOCOL_VERSION)
+               error = ("Incompatible protocol version. " 
+                        "Got: %s, expected: %s" % (protocol_version,
+                                                   PROTOCOL_VERSION))
         return is_ok, protocol_version, error
 
     #########
