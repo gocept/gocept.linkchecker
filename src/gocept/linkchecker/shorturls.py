@@ -7,7 +7,7 @@
 ##############################################################################
 """A short script that shortens URLs in a readable fashion to a target length.
 
-$Id: shorturls.py,v 1.2 2005/01/22 14:03:41 ctheune Exp $"""
+$Id$"""
 
 import urlparse
                 

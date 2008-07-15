@@ -6,7 +6,7 @@
 #
 ##############################################################################
 """CMF link checker - exception declarations
-$Id: exceptions.py,v 1.2 2005/01/08 08:34:41 ctheune Exp $"""
+$Id$"""
 
 class UnknownLink(Exception):
     pass

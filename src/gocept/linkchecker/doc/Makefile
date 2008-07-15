@@ -1,6 +1,6 @@
 # Copyright (c) 2005 gocept gmbh & co. kg
 # See also LICENSE.txt
-# $Id: Makefile,v 1.2 2005/04/11 11:01:57 zagy Exp $
+# $Id$
 
 TARGETS=INSTALL.html HOWTO-Developers.html HOWTO-MailNotifications.html \
 	TODO.html README.html
