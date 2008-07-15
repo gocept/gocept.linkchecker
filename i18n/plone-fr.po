@@ -1,0 +1,44 @@
+# additional translations for the plone domain
+msgid ""
+msgstr ""
+"Project-Id-Version: linkchecker-errors 1.0\n"
+"POT-Creation-Date: 2004-07-09 10:02default\n"
+"PO-Revision-Date: 2005-04-12 12:32:26 2005\n"
+"First-Translator: Nicolas LAURANCE <nlaurance@zindep.com>\n"
+"Last-Translator: Nicolas LAURANCE <nlaurance@zindep.com>\n"
+"Language-Team: Zindep\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language-Code: fr\n"
+"Language-Name: Français\n"
+"Preferred-Encodings: latin1 utf-8\n"
+"X-Is-Fallback-For: fr-be fr-ca fr-lu fr-mc fr-ch\n"
+"Domain: linkchecker\n"
+
+msgid "My Links"
+msgstr "Mes liens"
+
+msgid "Balanced Score Card: Links"
+msgstr "Fiche de synthèse : Liens"
+
+# added march 4, 2004
+
+msgid "Link monitoring settings"
+msgstr "Configuration de la surveillance des liens"
+
+msgid "mypreflink"
+msgstr ""
+
+msgid "Changes saved."
+msgstr "Changements enregistrés"
+
+msgid "LinkScheduler is active"
+msgstr ""
+
+msgid "Your link monitoring settings have been saved."
+msgstr "Vos paramètres de configuration ont été enregistrés"
+
+msgid "Your changes have been changed."
+msgstr "Vos changements ont été enregistrés"
+

@@ -1,0 +1,42 @@
+# additional translations for the plone domain
+msgid ""
+msgstr ""
+"Project-Id-Version: plone-da\n"
+"Last-Translator: Anton Stonor <stonor@giraffen.dk>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Language-code: da\n"
+"Language-name: Danish\n"
+"Preferred-encodings: latin1\n"
+"Domain: plone\n"
+
+msgid "My Links"
+msgstr "Mine links"
+
+msgid "Balanced Score Card: Links"
+msgstr "Linkrapport"
+
+## added march 4, S2004
+
+msgid "Link monitoring settings"
+msgstr "Indstillinger af linkchecker"
+
+msgid "mypreflink"
+msgstr "Mine indstillinger"
+
+msgid "Changes saved."
+msgstr "Ændringer gemt"
+
+msgid "LinkScheduler is active"
+msgstr "LinkScheduler er aktiv"
+
+msgid "Your link monitoring settings have been saved."
+msgstr "Dine indstillinger er nu gemt."
+
+msgid "Changes saved."
+msgstr "Ændringer gemt"
+
+msgid "Your changes have been changed."
+msgstr "Ændringer gemt"

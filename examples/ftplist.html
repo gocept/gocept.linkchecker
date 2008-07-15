@@ -1,0 +1,277 @@
+<html><head>
+<title>Wietse's collection of tools and papers</title></head><body bgcolor="#dfdfd8">
+
+<h1><a href="http://www.porcupine.org/wietse/">Wietse's</a>
+tools and papers</h1>
+
+This site is located in White Plains, New York, USA. It is kindly
+hosted by <a href="http://www.cloud9.net/">Cloud 9 Consulting,
+Inc.</a>
+
+<p>
+
+Some files have a (separate) PGP signature to protect you against
+trojanized versions.
+
+</p><p> 
+
+This is <a href="ftp://ftp.porcupine.org/pub/security/wietse.pgp">my PGP public key</a>. You can reach me
+personally as wietse@porcupine.org
+
+</p><hr>
+
+<h2>Disclaimer</h2>
+
+I wrote many of the tools in this archive, but I can't give any
+warranty on the absence of bugs. Use at your own risk.
+
+<hr>
+
+<h2>Table of Contents </h2> 
+
+<ul>
+
+<p></p><li> <a href="#software">Wietse's Tools</a>
+
+<p></p></li><li> <a href="#documents">Wietse's Papers </a>
+
+</li></ul>
+
+<hr>
+
+<a name="software"> </a><h2><a name="software">Wietse's Tools</a></h2>
+
+<dl><p></p><dt><a href="http://www.porcupine.org/forensics/">The Coroner's Toolkit (TCT)</a>
+
+<p></p></dt><dd>The Coroner's Toolkit is yet another result from the long-lasting
+collaboration between security researchers Dan Farmer (Earthlink)
+and Wietse Venema (IBM).
+
+<p>TCT is a collection of programs that can be used for a post-mortem
+analysis of a UNIX system after break-in. The software was presented
+first during a free Computer Forensics Analysis class in August
+1999.
+
+</p><p></p></dd><dt><a href="http://www.postfix.org/">Postfix</a>
+
+<p></p></dt><dd>Postfix is Wietse Venema's attempt to provide an alternative
+to the widely-used Sendmail program. 
+
+<p>
+
+Postfix attempts to be fast, easy to administer, and secure, while
+at the same time being sendmail compatible enough to not upset
+existing users.  Thus, the outside has a sendmail-ish flavor, but
+the inside is completely different.
+
+</p><p>
+
+This software was formerly known as VMailer. It was released by
+the end of 1998 as the IBM Secure Mailer. From then on it has lived
+on as Postfix.
+
+</p><p></p></dd><dt><a href="ftp://ftp.porcupine.org/pub/security/satan-1.1.1.tar.Z">SATAN (satan-1.1.1.tar.Z)</a>
+| <a href="ftp://ftp.porcupine.org/pub/security/satan-1.1.1.README"> README file</a>
+| <a href="ftp://ftp.porcupine.org/pub/security/satan-1.1.1.tar.Z.asc">PGP signature</a>
+
+<p></p></dt><dd>For more than one year, the most famous piece of Internet
+vaporware. SATAN closes much of the knowledge gap between intruders and
+system administrators, by proposing how to fix problems.  CERT-UU wrote
+a nice <a href="http://www.cs.ruu.nl/cert-uu/satan.html">overview</a>
+of the program, of vendor bulletins, and of alternative archive sites.
+Additional information can be found on this <a href="http://www.porcupine.org/satan/">really slow site</a>.  This unusual
+program is the result of an even more unusual cooperation between
+unusual people: <a href="http://www.porcupine.org/wietse">Wietse Venema</a> and
+<a href="http://www.fish.com/">Dan Farmer</a>.
+
+<p></p></dd><dt><a href="ftp://ftp.porcupine.org/pub/security/port-scan.tar.gz">port-scan
+(port-scan.tar.gz)</a>
+| <a href="ftp://ftp.porcupine.org/pub/security/port-scan.README">README file</a>
+| <a href="ftp://ftp.porcupine.org/pub/security/port-scan.tar.gz.sig">PGP signature</a>
+
+<p></p></dt><dd>Wietse Venema's UDP and TCP portscanners from the SATAN
+program. After all these years, people still seem to find these
+useful.  I make this software available as a separate package so
+you don't have to deal with the rest of SATAN.
+
+<p></p></dd><dt><a href="ftp://ftp.porcupine.org/pub/security/tcp_wrappers_7.6.tar.gz">TCP Wrapper
+(tcp_wrappers_7.6.tar.gz)</a>
+| <a href="ftp://ftp.porcupine.org/pub/security/tcp_wrappers_7.6.BLURB">BLURB file</a>
+| <a href="ftp://ftp.porcupine.org/pub/security/tcp_wrappers_7.6.tar.gz.sig">PGP signature</a>
+| <a href="ftp://ftp.porcupine.org/pub/security/tcp_wrappers_license">Updated License</a>
+
+<p></p></dt><dt><a href="ftp://ftp.porcupine.org/pub/security/tcp_wrappers_7.6-ipv6.3.tar.gz">IPV6 version by Casper
+Dik (tcp_wrappers_7.6-ipv6.3.tar.gz)</a> | <a href="ftp://ftp.porcupine.org/pub/security/tcp_wrappers_7.6-ipv6.3.tar.gz.sig">PGP signature</a>
+
+<p></p></dt><dd>Wietse Venema's network logger, also known as TCPD or LOG_TCP.
+These programs log the client host name of incoming telnet, ftp, rsh,
+rlogin, finger etc.  requests. Security options are:  access control
+per host, domain and/or service; detection of host name spoofing or
+host address spoofing; booby traps to implement an early-warning
+system.  The current version supports the System V.4 TLI network
+programming interface (Solaris, DG/UX) in addition to the traditional
+BSD sockets.
+
+<p>
+
+See <a href="ftp://ftp.porcupine.org/pub/security/hints-and-tips.html"> hints-and-tips.html</a> if you
+have trouble compiling or configuring the software.
+
+</p><p></p></dd><dt><a href="ftp://ftp.porcupine.org/pub/security/chrootuid1.3.tar.gz">Chrootuid (chrootuid1.3.tar.gz)</a>
+| <a href="ftp://ftp.porcupine.org/pub/security/chrootuid1.3.README">README file</a>
+| <a href="ftp://ftp.porcupine.org/pub/security/chrootuid1.3.tar.gz.sig">PGP signature</a>
+| <a href="ftp://ftp.porcupine.org/pub/security/chrootuid_license">Updated License</a>
+
+<p></p></dt><dd>Chrootuid makes it easy to run a network service at low
+privilege level and with restricted file system access.  At Eindhoven
+University we use this program to run the gopher and www (world-wide
+web) network daemons in a minimal environment:  the daemons have access
+only to their own directory tree, and run under a low-privileged
+userid.  The arrangement greatly reduces the impact of possible
+loopholes in daemon software.
+
+<p></p></dd><dt><a href="ftp://ftp.porcupine.org/pub/security/sh-apache.tar.gz">Apache shell (sh-apache.tar.gz)</a>
+| <a href="ftp://ftp.porcupine.org/pub/security/sh-apache.README">README file</a>
+| <a href="ftp://ftp.porcupine.org/pub/security/sh-apache.tar.gz.sig">PGP signature</a>
+| <a href="ftp://ftp.porcupine.org/pub/security/sh-apache-license">License</a>
+
+<p></p></dt><dd>
+
+A minimal shell program for use with Apache web servers running
+inside a chroot jail. This shell program drops privileges when run
+as root, and does not support any shell metacharacters.
+
+<p></p></dd><dt><a href="ftp://ftp.porcupine.org/pub/security/portmap_4.tar.gz">Portmap (portmap_4.tar.gz)</a>
+| <a href="ftp://ftp.porcupine.org/pub/security/portmap_4.BLURB">BLURB file</a>
+| <a href="ftp://ftp.porcupine.org/pub/security/portmap_4.tar.gz.sig">PGP signature</a>
+
+<p></p></dt><dd>Replacement portmapper with access control. Makes it somewhat
+harder to attack your RPC daemons, for example to steal YP password
+maps or NFS file handles.  Must be linked against a library produced
+with a recent tcp wrapper release (see above). Tested with SunOS 4.1.x.
+Also supports HP-UX 9.0, AIX 3.x (bsdcc compiler with -D_SUN), AIX 4.x
+and Digital UNIX (OSF/1).
+
+If you run SunOS 4, the securelib library (see above) is better because
+it can also cope with direct attacks on your RPC daemons (i.e. attacks
+without assistance from portmap).
+
+<p></p></dd><dt><a href="ftp://ftp.porcupine.org/pub/security/rpcbind_2.1.tar.gz">Rpcbind (rpcbind_2.1.tar.gz)</a>
+| <a href="ftp://ftp.porcupine.org/pub/security/rpcbind_2.1.README"> README file</a>
+| <a href="ftp://ftp.porcupine.org/pub/security/rpcbind_2.1.tar.gz.sig">PGP signature</a>
+
+<p></p></dt><dd>Replacement rpcbind program (the System V.4 portmapper) that
+prevents intruders from bypassing your NFS export restrictions.
+Derived from a legal copy of the SunOS 5.3 rpcbind source code.  This
+version refuses requests sent by remote clients to TCP or UDP ports
+other than 111.
+
+<p></p></dd><dt><a href="ftp://ftp.porcupine.org/pub/security/logdaemon-5.13.tar.gz">Logdaemon (logdaemon-5.13.tar.gz)
+</a>
+| <a href="ftp://ftp.porcupine.org/pub/security/logdaemon-5.13.README"> README file</a>
+| <a href="ftp://ftp.porcupine.org/pub/security/logdaemon-5.13.tar.gz.sig">PGP signature</a>
+| <a href="ftp://ftp.porcupine.org/pub/security/logdaemon_license">Updated License</a>
+
+<ul>
+
+<p></p><li>Rlogin and rsh daemons that log the remote user name as well as
+the remote host name, with tcp_wrapper access control.  These daemons
+are believed to be drop-in replacements for SunOS 4.x, Ultrix 4.x and
+SunOS 5.x (Solaris 2.x). 
+
+<p></p></li><li>Login replacement supporting S/Key one-time passwords, SecureNet
+keycard one-time passwords, per-user/host/terminal access control, and
+with fascist login failure logging (tested with SunOS 4.x and 5.x).
+Probably works with HP-UX 9.x, IRIX 5.3, Digital UNIX.
+
+<p></p></li><li>Ftp daemon that supports S/Key one-time passwords, SecureNet
+keycard one-time passwords, fascist login failure logging, and logging
+of anonymous FTP xfers (tested with SunOS 4.x and 5.x). Probably works
+with Ultrix 4.x, HP-UX 9.x, IRIX 5.3, Digital UNIX.
+
+<p></p></li><li>Rexec daemon that supports S/Key one-time passwords, fascist
+login failure logging, and that blocks access to the root account
+(tested with SunOS 4.x and 5.x).  Probably works with Ultrix 4.x, HP-UX
+9.x, IRIX 5.3, Digital UNIX.
+
+</li></ul>
+
+<p></p></dt><dt><a href="ftp://ftp.porcupine.org/pub/unix/unproto5.shar.Z"> Unproto (unproto5.shar.Z) </a>
+
+<p></p></dt><dd> A wrapper program that upgrades your traditional C compiler to
+something that understands a very large subset of ANSI C, including
+stdarg-style variadic functions.  The program is a wrapper around the C
+preprocessor that on the fly translates ANSI C to traditional C. It
+comes with a set of ANSI-compatible include files.
+
+<p></p></dd><dt><a href="ftp://ftp.porcupine.org/pub/unix/yapasswd.tar.Z"> Yapasswd (yapasswd.tar.Z) </a>
+| <a href="ftp://ftp.porcupine.org/pub/unix/yapasswd.tar.Z.asc">PGP signature</a>
+
+<p></p></dt><dd> Yet another password command for SunOS 4.x and 5.x. No shadow
+support, uses insecure NIS, but we depend on it anyway.
+
+<p></p></dd><dt><a href="ftp://ftp.porcupine.org/pub/unix/agetty.shar.Z"> Agetty (agetty.shar.Z) </a>
+
+<p></p></dt><dd> A flexible getty (portmon) replacement for System V Release 2,
+SunOS 4.x, and SunOS 5.x. Automagically adapts to parity settings,
+erase characters etcetera. This is another program that my sanity
+depends on when I hook up modems or terminals to my own machines.
+
+</dd></dl>
+
+<hr>
+
+<a name="documents"> </a><h2><a name="documents">Wietse's Papers</a></h2>
+
+<dl><p></p><dt><a href="ftp://ftp.porcupine.org/pub/security/murphy.ps.gz">murphy.ps.gz (postscript) </a>
+</dt><dt><a href="ftp://ftp.porcupine.org/pub/security/murphy.txt.gz">murphy.txt.gz (ascii)</a>
+
+<p></p></dt><dd>"Murphy's law and computer security", a paper presented at the
+Sixth <a href="http://www.usenix.org/"> USENIX </a> Security Symposium
+(San Jose, July 1996).  The title should have been "Lessons learned
+from errors in my own software and from those by other people", but
+that did not sound as sexy.
+
+<p></p></dd><dt><a href="ftp://ftp.porcupine.org/pub/security/admin-guide-to-cracking.101.Z">
+admin-guide-to-cracking.101.Z (ascii)</a>
+
+<p></p></dt><dd>Slightly updated version of an article that was posted to Usenet
+on December 2, 1993, titled: "Improving the security of your site by
+breaking into it." by Dan Farmer and Wietse Venema. The paper explains
+to the administrator what crackers have known for a long time.
+
+<p>
+
+The paper also announces a piece of security software called
+SATAN (Security Administrator Tool for Analyzing Networks).  It took 
+the authors more than a year to fulfill their promise.
+
+</p><p> </p></dd><dt><a href="ftp://ftp.porcupine.org/pub/security/satan_doc.tar.Z"> SATAN demo release (satan_doc.tar.Z) </a>
+| <a href="ftp://ftp.porcupine.org/pub/security/satan_doc.README"> README file</a>
+| <a href="ftp://ftp.porcupine.org/pub/security/satan_doc.tar.Z.asc">PGP signature</a>
+
+<p></p></dt><dd>
+
+Updated version of the SATAN documentation release on March
+15, 1995. This archive contains a sample database that illustrates
+a lot of the problems that SATAN can find for you.
+
+<p></p></dd><dt><a href="ftp://ftp.porcupine.org/pub/security/tcp_wrapper.ps.Z">tcp_wrapper.ps.Z (postscript)</a>
+</dt><dt><a href="ftp://ftp.porcupine.org/pub/security/tcp_wrapper.txt.Z">tcp_wrapper.txt.Z (ascii)</a>
+
+<p></p></dt><dd>Presented at the 3rd UNIX Security Symposium (Baltimore,
+September 1992).  Describes the development of the TCP Wrapper tool
+(aka the log_tcp package) to trace a malicious Dutch computer cracker
+(see also:  <a href="ftp://research.att.com/dist/internet_security/berferd.ps"> An
+evening with Berferd </a> by Bill Cheswick).
+
+<p></p></dd><dt><a href="ftp://ftp.porcupine.org/pub/security/tcp_wrapper.dutch.ps.Z">tcp_wrapper.dutch.ps.Z (postscript)</a> 
+</dt><dt><a href="ftp://ftp.porcupine.org/pub/security/tcp_wrapper.dutch.txt.Z"> tcp_wrapper.dutch.txt.Z (ascii)</a>
+
+<p></p></dt><dd>Text (in Dutch!) of a presentation given at the 23 april
+1992 security meeting of the NLUUG (Dutch UNIX users group) and SURF
+(network provider for the Dutch universities). </dd></dl>
+
+<hr>
+
+</body></html>

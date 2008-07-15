@@ -1,0 +1,28 @@
+# Gettext Message File for linkchecker.
+# Christian Theune <ct@gocept.com>, 2004
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: linkchecker-errors 1.0\n"
+"POT-Creation-Date: 2004-07-09 10:02default\n"
+"PO-Revision-Date: 2004-07-09 17:51+0200\n"
+"Last-Translator: Christian Theune <ct@gocept.com>\n"
+"Language-Team: German <linkchecker@lists.gocept.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Domain: linkchecker\n"
+"Language-code: de\n"
+"Language-name: German\n"
+
+msgid "Temporary failure in name resolution"
+msgstr "Vorübergehender Fehler der Namensauflösung"
+
+msgid "File not found"
+msgstr "Datei nicht gefunden"
+
+msgid "Timeout"
+msgstr "Zeitüberschreitung"
+
+msgid "Not Found"
+msgstr "Nicht gefunden"

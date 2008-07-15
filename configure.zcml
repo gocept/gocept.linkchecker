@@ -1,0 +1,22 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+  xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+  xmlns:five="http://namespaces.zope.org/five"
+  i18n_domain="linkchecker">
+
+  <genericsetup:registerProfile
+    name="default"
+    title="CMFLinkChecker"
+    directory="profiles/default"
+    description="Profile for CMFLinkChecker."
+    provides="Products.GenericSetup.interfaces.EXTENSION"
+    />
+
+  <subscriber handler=".retrievemanager.update_links" />
+
+  <five:deprecatedManageAddDelete class=".url.URL"/>
+  <five:deprecatedManageAddDelete class=".link.Link"/>
+  <five:deprecatedManageAddDelete class=".database.LinkDatabase"/>
+  <five:deprecatedManageAddDelete class=".retrievemanager.RetrieveManager"/>
+  <five:deprecatedManageAddDelete class=".LinkCheckerTool.LinkCheckerTool"/>
+
+</configure>

@@ -1,0 +1,42 @@
+# additional translations for the plone domain
+msgid ""
+msgstr ""
+"Project-Id-Version: CMFLinkChecker 1.0\n"
+"Last-Translator: Christian Theune <ct@gocept.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Language-code: en\n"
+"Language-name: English\n"
+"Preferred-encodings: latin1 utf-8\n"
+"Domain: plone\n"
+
+msgid "My Links"
+msgstr ""
+
+msgid "Balanced Score Card: Links"
+msgstr ""
+
+# added march 4, 2004
+
+msgid "Link monitoring settings"
+msgstr ""
+
+msgid "mypreflink"
+msgstr ""
+
+msgid "Changes saved."
+msgstr ""
+
+msgid "LinkScheduler is active"
+msgstr ""
+
+msgid "Your link monitoring settings have been saved."
+msgstr ""
+
+msgid "Changes saved."
+msgstr ""
+
+msgid "Your changes have been changed."
+msgstr ""
