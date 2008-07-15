@@ -8,6 +8,7 @@
 import time
 
 # Zope imports
+import zope.interface
 from OFS.SimpleItem import SimpleItem
 from Globals import InitializeClass
 from AccessControl import ClassSecurityInfo, getSecurityManager
@@ -29,7 +30,7 @@ def manage_addBaseReports(container, id):
 class BaseReports(SimpleItem):
     """Supplement functions for various basic reports."""
 
-    __implements__ = (IBaseReports,) + SimpleItem.__implements__
+    zope.interface.implements(IBaseReports)
     security = ClassSecurityInfo()
 
     def _filter_report(self, member, report):

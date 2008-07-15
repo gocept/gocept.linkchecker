@@ -9,6 +9,7 @@ import socket
 from xmlrpclib import ServerProxy, Fault
 
 # Zope imports
+import zope.interface
 import Products.Archetypes.interfaces
 from Products.BTreeFolder2.BTreeFolder2 import BTreeFolder2
 from AccessControl import getSecurityManager, ClassSecurityInfo
@@ -24,6 +25,7 @@ import gocept.linkchecker.url
 import gocept.linkchecker.utils
 from gocept.linkchecker.interfaces import ILinkDatabase
 from gocept.linkchecker import permissions
+
 
 PROTOCOL_VERSION = 2
 WEBSERVICE = "http://lms.gocept.com/v2"
@@ -67,7 +69,7 @@ class LinkDatabase(BTreeFolder2):
     Manages the physical storage of link and url information.
     """
 
-    __implements__ = (ILinkDatabase, ) + BTreeFolder2.__implements__
+    zope.interface.implements(ILinkDatabase)
 
     defaultURLPrefix = ""
 

@@ -34,11 +34,12 @@ from gocept.linkchecker import permissions, shorturls
 
 LMS_REGISTRATION = "http://www.gocept.com/portal_lms_registration"
 
+
 class LinkCheckerTool(UniqueObject, Folder):
     """A link checker tool. Encapsulating mechanisms for finding links in the
        site, testing their availability and notifying their owners."""
 
-    # zope.interface.implements(ILinkManager)
+    zope.interface.implements(ILinkManager)
 
     id = 'portal_linkchecker'
     meta_type = 'CMF Linkchecker Tool'

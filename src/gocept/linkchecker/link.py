@@ -8,6 +8,7 @@
 from DateTime import DateTime
 from OFS.SimpleItem import SimpleItem
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
+import zope.interface 
 
 # CMF/Plone imports
 from Products.CMFCore.utils import getToolByName
@@ -22,7 +23,8 @@ class Link(SimpleItem):
 
     meta_type = "Link"
 
-    __implements__ = (gocept.linkchecker.interfaces.ILink,)
+    zope.interface.implements(gocept.linkchecker.interfaces.ILink)
+
     # XXX make accessor functions
     __allow_access_to_unprotected_subobjects__ = 1
 
