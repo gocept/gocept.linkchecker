@@ -28,10 +28,11 @@ from Products.CMFCore.Expression import Expression
 from Products.Archetypes.interfaces.referenceable import IReferenceable
 
 # Sibling imports
-from Products.CMFLinkChecker.interfaces import ILinkManager
-from Products.CMFLinkChecker.utils import resolveRelativeLink
-from Products.CMFLinkChecker import permissions, shorturls, config
+from gocept.linkchecker.interfaces import ILinkManager
+from gocept.linkchecker.utils import resolveRelativeLink
+from gocept.linkchecker import permissions, shorturls
 
+LMS_REGISTRATION = "http://www.gocept.com/portal_lms_registration"
 
 class LinkCheckerTool(UniqueObject, Folder):
     """A link checker tool. Encapsulating mechanisms for finding links in the
@@ -66,13 +67,13 @@ class LinkCheckerTool(UniqueObject, Folder):
         object_ids = self.objectIds()
         
         if 'retrieving' not in object_ids:
-            self.manage_addProduct["CMFLinkChecker"].\
+            self.manage_addProduct["gocept.linkchecker"].\
                     manage_addRetrieveManager('retrieving')
         if 'database' not in object_ids:
-            self.manage_addProduct["CMFLinkChecker"].\
+            self.manage_addProduct["gocept.linkchecker"].\
                     manage_addLinkDatabase('database')
         if 'reports' not in object_ids:
-            self.manage_addProduct["CMFLinkChecker"].\
+            self.manage_addProduct["gocept.linkchecker"].\
                     manage_addBaseReports('reports')
 
         self.active = True
@@ -114,7 +115,7 @@ class LinkCheckerTool(UniqueObject, Folder):
         portal = getToolByName(self, 'portal_url').getPortalObject()
         callback_url = portal.portal_linkchecker.database.absolute_url()
 
-        return "%s?callback_url=%s&return_url=%s" % (config.LMS_REGISTRATION,
+        return "%s?callback_url=%s&return_url=%s" % (LMS_REGISTRATION,
                                                      callback_url, return_url)
 
     security.declareProtected(ManagePortal, 'getInfoFrameURL')

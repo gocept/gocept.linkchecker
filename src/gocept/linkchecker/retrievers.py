@@ -3,11 +3,10 @@
 # $Id$
 """CMF link checker tool - link retriever functions"""
 
-# CMFLinkChecker imports
-from Products.CMFLinkChecker.interfaces import IRetriever
-from Products.CMFLinkChecker.utils import retrieveHTML, retrieveSTX, \
+from gocept.linkchecker.interfaces import IRetriever
+from gocept.linkchecker.utils import retrieveHTML, retrieveSTX, \
      retrieveAllRichTextFields, updateAllRichTextFields
-from Products.CMFLinkChecker.retrievemanager import GlobalRegistry
+from gocept.linkchecker.retrievemanager import GlobalRegistry
 
 class RetrieverLink(object):
     """CMFDefault.Link retriever

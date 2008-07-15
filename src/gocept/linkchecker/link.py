@@ -13,8 +13,8 @@ from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 from Products.CMFCore.utils import getToolByName
 
 # Sibling imports
-import Products.CMFLinkChecker.interfaces
-import Products.CMFLinkChecker.utils
+import gocept.linkchecker.interfaces
+import gocept.linkchecker.utils
 
 
 class Link(SimpleItem):
@@ -22,7 +22,7 @@ class Link(SimpleItem):
 
     meta_type = "Link"
 
-    __implements__ = (Products.CMFLinkChecker.interfaces.ILink,)
+    __implements__ = (gocept.linkchecker.interfaces.ILink,)
     # XXX make accessor functions
     __allow_access_to_unprotected_subobjects__ = 1
 
@@ -39,7 +39,7 @@ class Link(SimpleItem):
         self.link = link
         self.id = id
 
-    # Products.CMFLinkChecker.interfaces.ILink
+    # gocept.linkchecker.interfaces.ILink
     def getURL(self):
         """Return the URL object this link refers to."""
         lc = getToolByName(self, "portal_linkchecker")
@@ -62,7 +62,7 @@ class Link(SimpleItem):
         self.unindex()
 
     def index(self):
-        self.url = Products.CMFLinkChecker.utils.resolveRelativeLink(self.link, self.getObject())
+        self.url = gocept.linkchecker.utils.resolveRelativeLink(self.link, self.getObject())
         url = self.getURL()
         self.state = url.state
         self.reason = url.reason

@@ -13,8 +13,8 @@ from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 from Products.CMFCore.utils import getToolByName
 
 # Sibling imports
-import Products.CMFLinkChecker.interfaces
-import Products.CMFLinkChecker.utils
+import gocept.linkchecker.interfaces
+import gocept.linkchecker.utils
 
 
 class URL(SimpleItem):
@@ -22,7 +22,7 @@ class URL(SimpleItem):
 
     meta_type = "URL"
 
-    __implements__ = (Products.CMFLinkChecker.interfaces.IURL,)
+    __implements__ = (gocept.linkchecker.interfaces.IURL,)
     # XXX make accessor functions
     __allow_access_to_unprotected_subobjects__ = 1
 
@@ -40,10 +40,9 @@ class URL(SimpleItem):
     manage_info = PageTemplateFile('www/url', globals(), __name__='manage_info')
 
     def __init__(self, url):
-        self.id = Products.CMFLinkChecker.utils.hash_url(url)
+        self.id = gocept.linkchecker.utils.hash_url(url)
         self.url = url
 
-    # Products.CMFLinkChecker.interfaces.IURL
     def getLinks(self):
         lc = getToolByName(self, "portal_linkchecker")
         return lc.database.getLinksForURL(self.url)

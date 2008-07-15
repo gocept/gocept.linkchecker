@@ -17,9 +17,8 @@ from DateTime import DateTime
 from Products.CMFCore import permissions
 from Products.CMFCore.utils import getToolByName
 
-# CMFLinkChecker imports
-from Products.CMFLinkChecker.interfaces import IBaseReports
-from Products.CMFLinkChecker import permissions
+from gocept.linkchecker.interfaces import IBaseReports
+from gocept.linkchecker import permissions
 
 
 def manage_addBaseReports(container, id):

@@ -4,10 +4,10 @@
 # $Id$
 
 import unittest
-from Products.CMFLinkChecker.tests.base import CMFLinkCheckerTestCase
+from gocept.linkchecker.tests.base import LinkCheckerTestCase
 from Products.Five.testbrowser import Browser
 
-class TestSetup(CMFLinkCheckerTestCase):
+class TestSetup(LinkCheckerTestCase):
 
     def test_portal_tool(self):
         self.assert_('portal_linkchecker' in self.portal.objectIds())
@@ -20,6 +20,7 @@ class TestSetup(CMFLinkCheckerTestCase):
         b.getControl(name='__ac_password').value = self.default_password
         b.getControl(name='submit').click()
         b.open(self.portal.absolute_url())
+        import pdb; pdb.set_trace() 
         self.assert_(b.getLink('Link management'))
         self.assert_(b.getLink('My links'))
         self.assert_(b.getLink('Links'))

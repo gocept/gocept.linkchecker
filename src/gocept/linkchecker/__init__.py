@@ -3,22 +3,21 @@
 # $Id$
 """CMF link checker tool initalisation code"""
 
-from Products.Archetypes import public as atapi
-from Products.CMFLinkChecker import permissions
+from gocept.linkchecker import permissions
 from Products.CMFCore import utils as CMFutils
+from Products.CMFCore import DirectoryView
 
-from Products.CMFLinkChecker import config
 
 def initialize_tool(context):
-    from Products.CMFLinkChecker import LinkCheckerTool
+    from gocept.linkchecker import LinkCheckerTool
     tools = (LinkCheckerTool.LinkCheckerTool, )
-    tool_init = CMFutils.ToolInit('CMFLinkChecker Tool',
+    tool_init = CMFutils.ToolInit('Link checker tool',
                                   tools=tools,
                                   icon="tool.png")
     tool_init.initialize(context)
    
 def initialize_content(context):
-    from Products.CMFLinkChecker import database, retrievemanager, reports
+    from gocept.linkchecker import database, retrievemanager, reports
     context.registerClass(database.LinkDatabase,
                           constructors=(database.manage_addLinkDatabase,),
                           container_filter = filterLinkManagerAddable)
@@ -32,37 +31,16 @@ def initialize_content(context):
                           container_filter=filterLinkManagerAddable
         )
 
-def initialize_atcontent(context):
-    # this is *only* for test support, therefore we do not import anything
-    types = atapi.listTypes(config.PROJECTNAME)
-    if not types:
-        return
-    content_types, constructors, ftis = atapi.process_types(types,
-                                                            config.PROJECTNAME)
-    content_init = CMFutils.ContentInit(config.PROJECTNAME + ' Content',
-                                        content_types=content_types,
-                                        permission=\
-                                           permissions.AddPortalContent,
-                                        extra_constructors=constructors,
-                                        fti=ftis)
-    content_init.initialize(context)
-
-def initialize_skins(context):
-    from Products.CMFCore import DirectoryView
-    DirectoryView.registerDirectory(config.SKINS_DIR, config.GLOBALS)
-
-
 def initialize_retrievers(context):
-    from Products.CMFLinkChecker import retrievers
+    from gocept.linkchecker import retrievers
     retrievers.register()
 
 
 def initialize(context):
     initialize_tool(context)
     initialize_content(context)
-    initialize_atcontent(context)
-    initialize_skins(context)
     initialize_retrievers(context)
+    DirectoryView.registerDirectory('skins', globals())
     
 
 def filterLinkManagerAddable(objectmanager):

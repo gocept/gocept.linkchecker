@@ -1,13 +1,9 @@
-=====================================
-Dependencies for using CMFLinkChecker
-=====================================
+========================================
+Dependencies for using gocept.inkchecker
+========================================
 
-* Plone 2.0
+* Plone 3.0
 
-* Zope 2.7
-
-* Python 2.3
-
-* Archetypes
+* lxml
 
 * a running lms

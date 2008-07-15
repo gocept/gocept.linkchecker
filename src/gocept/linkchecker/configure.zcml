@@ -3,11 +3,13 @@
   xmlns:five="http://namespaces.zope.org/five"
   i18n_domain="linkchecker">
 
+  <five:registerPackage package="." initialize=".initialize" />
+
   <genericsetup:registerProfile
     name="default"
-    title="CMFLinkChecker"
+    title="Link checker"
     directory="profiles/default"
-    description="Profile for CMFLinkChecker."
+    description="Profile for gocept.linkchecker."
     provides="Products.GenericSetup.interfaces.EXTENSION"
     />
 

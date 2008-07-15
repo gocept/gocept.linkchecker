@@ -7,13 +7,12 @@ import unittest
 from Products.Archetypes.tests.common import *
 from Products.Archetypes.tests.utils import *
 
-from Products.CMFLinkChecker.tests.base import \
-    CMFLinkCheckerTestCase
+from gocept.linkchecker.tests.base import LinkCheckerTestCase
 
 from Products.CMFCore.utils import getToolByName
 
 
-class CMFLinkCheckerTest(CMFLinkCheckerTestCase):
+class LinkCheckerTest(LinkCheckerTestCase):
 
     def test_normalization(self):
         # Test if relative link will get absolute in Database
@@ -51,7 +50,7 @@ class CMFLinkCheckerTest(CMFLinkCheckerTestCase):
                          db_cont[0].url)
 
     def test_urlrecord(self):
-        from Products.CMFLinkChecker.utils import urlrecord
+        from gocept.linkchecker.utils import urlrecord
 
         components = ('scheme', 'netloc', 'path', 'parameters', 'query', 'fragment')
         urls = {
@@ -78,7 +77,7 @@ class CMFLinkCheckerTest(CMFLinkCheckerTestCase):
             self.assertEqual(url, str(urlrecord(url)))
 
     def test_resolverelative(self):
-        from Products.CMFLinkChecker.utils import resolveRelativeLink
+        from gocept.linkchecker.utils import resolveRelativeLink
 
         self.loginAsPortalOwner()
         portal = self.portal
@@ -138,5 +137,5 @@ class CMFLinkCheckerTest(CMFLinkCheckerTestCase):
 
 def test_suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(CMFLinkCheckerTest))
+    suite.addTest(unittest.makeSuite(LinkCheckerTest))
     return suite

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <object name="portal_skins">
     <object name="linkchecker" meta_type="Filesystem Directory View"
-        directory="Products.CMFLinkChecker:skins/linkchecker"/>
+        directory="gocept.linkchecker:skins/linkchecker"/>
     <skin-path name="Plone Default">
         <layer name="linkchecker" insert-after="custom"/>
     </skin-path>

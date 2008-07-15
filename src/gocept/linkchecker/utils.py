@@ -1,13 +1,8 @@
-##############################################################################
-#
-# Copyright (c) 2003 gocept gmbh & co. kg. All rights reserved.
-#
+# vim:fileencoding=utf-8
+# Copyright (c) 2008 gocept gmbh & co. kg
 # See also LICENSE.txt
-#
-##############################################################################
-"""CMF link checker tool - general utility functions
-
-$Id$"""
+# $Id$
+"""General utility functions."""
 
 # Python imports
 from urlparse import urlparse, urlunparse, urljoin
@@ -27,7 +22,7 @@ from StructuredText import Basic
 from StructuredText.DocumentClass import StructuredTextLink, DocumentClass
 
 # Sibling imports
-from Products.CMFLinkChecker import lchtmllib
+from gocept.linkchecker import lchtmllib
 
 
 inet_services = {
@@ -133,7 +128,7 @@ def retrieveHTML(text):
         parser.close()
     except SGMLParseError, e:
         # SGMLLib seems to die on bad HTML sometimes. (At least with python2.1)
-        zLOG.LOG('CMFLinkChecker', zLOG.INFO,
+        zLOG.LOG('gocept.linkchecker', zLOG.INFO,
                  'retrieveHTML failed due to SGMLParseError',
                  str(e))
     return tuple(parser.anchorlist) + tuple(parser.imglist)
@@ -188,7 +183,7 @@ def updateOneRichTextField(old_url, new_url, object, field):
 
     # We can only handle HTML now.
     text = """<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-    <cmflinkcheckerroot>%s</cmflinkcheckerroot>""" % text
+    <linkcheckerroot>%s</linkcheckerroot>""" % text
     parser = lxml.etree.HTMLParser()
     tree = lxml.etree.parse(StringIO.StringIO(text), parser)
     # links
@@ -200,8 +195,8 @@ def updateOneRichTextField(old_url, new_url, object, field):
         if image.get("src") == old_url:
             image.set("src", new_url)
     text = lxml.etree.tostring(tree)
-    text = text.replace('<html xmlns="http://www.w3.org/1999/xhtml"><body><cmflinkcheckerroot>', '')
-    text = text.replace('</cmflinkcheckerroot></body></html>', '')
+    text = text.replace('<html xmlns="http://www.w3.org/1999/xhtml"><body><linkcheckerroot>', '')
+    text = text.replace('</linkcheckerroot></body></html>', '')
     field.set(object, text)
 
 

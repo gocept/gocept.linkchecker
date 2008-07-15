@@ -1,7 +1,7 @@
 # Copyright (c) 2003-2005 gocept gmbh & co. kg
 # See also LICENSE.txt
 # $Id$"""
-"""CMF link checker tool interface definitions"""
+"""gocept.linkchecker interface definitions"""
 
 
 from Interface import Interface, Attribute
@@ -275,13 +275,3 @@ class IRetriever(Interface):
 
     def updateLink(self, oldurl, newurl, object):
         """Replace all occurances of <oldurl> on object with <newurl>."""
-
-
-# Additional fields a CMFMember object requires in order to be usable with
-# CMFLinkChecker
-memberSchema = atapi.Schema((
-    atapi.LinesField('lc_notify_details', regfield=False),
-    atapi.LinesField('lc_notify_frequency', regfield=False),
-    atapi.BooleanField('lc_notify_changes_only', regfield=False),
-    atapi.DateTimeField('lc_notify_last_notification', regfield=False),
-))
