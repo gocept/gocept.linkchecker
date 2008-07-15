@@ -4,7 +4,7 @@ Meta::
 
     Author: Christian Theune <ct@gocept.com>
     Valid for: CMF Link checker
-    CVS: $Id: Scheduling.txt,v 1.2 2004/01/15 16:07:50 ctheune Exp $
+    CVS: $Id$
     Status: work in progress
 
 Describes a scheduling mechanism to avoid long locks.
