@@ -10,8 +10,7 @@ from Products.Archetypes.tests.utils import *
 from Products.Archetypes.tests.test_sitepolicy import makeContent
 from Products.CMFCore.utils import getToolByName
 
-from gocept.linkchecker.retrievers import RetrieverEvent, \
-        RetrieverLink, RichTextRetriever
+from gocept.linkchecker import retrievers
 
 from gocept.linkchecker.tests.base import LinkCheckerTestCase
 
@@ -31,13 +30,13 @@ class LinkCheckerTest(LinkCheckerTestCase):
         event.edit(event_url=url)
         event.setText(text)
 
-        links = RetrieverEvent().retrieveLinks(event)
+        links = retrievers.Event(event).retrieveLinks()
 
         self.assertEqual(len(links), 5)
         self.assertEqual(links[0], url)
 
-        # RichTextRetriever doesn't find the plain url
-        links = RichTextRetriever().retrieveLinks(event)
+        # The general AT retriever doesn't find this URL
+        links = retrievers.ATGeneral(event).retrieveLinks()
         self.assertEqual(links[0], "http://www.google.de/img.png")
         self.assertEqual(len(links), 4)
 
@@ -49,7 +48,7 @@ class LinkCheckerTest(LinkCheckerTestCase):
         ob = makeContent(self.portal, portal_type="Link", id="asdf")
         ob.edit(url)
 
-        links = RetrieverLink().retrieveLinks(ob)
+        links = retrievers.Link(ob).retrieveLinks()
 
         self.assertEqual(len(links), 1)
         self.assertEqual(links[0], url)
@@ -67,7 +66,7 @@ class LinkCheckerTest(LinkCheckerTestCase):
         ob = makeContent(self.portal, portal_type="Document", id="asdf")
         ob.setText(text)
 
-        links_ob = RichTextRetriever().retrieveLinks(ob)
+        links_ob = retrievers.ATGeneral(ob).retrieveLinks()
         self.assertEqualLinks(links, links_ob)
 
     def test_document_stx_retriever(self):
@@ -84,7 +83,7 @@ class LinkCheckerTest(LinkCheckerTestCase):
         ob.setText(text, mimetype='text/structured')
 
         # RichTextRetriever should work just as well.
-        links_ob = RichTextRetriever().retrieveLinks(ob)
+        links_ob = retrievers.ATGeneral(ob).retrieveLinks()
         self.assertEqualLinks(links, links_ob)
 
     def assertEqualLinks(self, links, links_ob):

@@ -92,7 +92,6 @@ class LinkCheckerTest(LinkCheckerTestCase):
         self.loginAsPortalOwner()
         portal = self.portal
         lc = getToolByName(portal, 'portal_linkchecker')
-        lc.retrieving.registerRetriever('Document', 'RichText')
         db = lc.database
         portal.invokeFactory('Document', 'd1')
         d1 = portal.d1
@@ -106,26 +105,6 @@ class LinkCheckerTest(LinkCheckerTestCase):
         zope.event.notify(zope.lifecycleevent.ObjectModifiedEvent(d1))
         links = db.getLinksForObject(d1)
         self.assertEquals(0, len(links))
-
-    def test_registerRetriever(self):
-        self.loginAsPortalOwner()
-        portal = self.portal
-        lc = getToolByName(portal, 'portal_linkchecker')
-        reg = lc.retrieving.registerRetriever
-
-        self.assertRaises(KeyError,
-                          reg, 'DummyContent', 'RetrieveDoesNotexist')
-        self.assertRaises(KeyError,
-                          reg, 'PortalTypeDoesNotExist', 'RichText')
-       
-        reg('Image', 'RichText')
-        self.assert_(lc.retrieving.isRetrieverForType('RichText',
-                                                      'Image'))
-
-        reg('Image', None)
-        self.assert_(not lc.retrieving.isRetrieverForType('RichText',
-                                                          'Image'))
-        self.assert_('Image' not in lc.retrieving.listSupportedTypes())
 
 
 def test_suite():

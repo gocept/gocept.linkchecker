@@ -4,7 +4,7 @@
 """gocept.linkchecker interface definitions"""
 
 
-from Interface import Interface, Attribute
+from zope.interface import Interface, Attribute
 
 from Products.Archetypes import public as atapi
 
@@ -132,36 +132,7 @@ class ILinkDatabase(Interface):
 
 
 class IRetrieveManager(Interface):
-    """Local registry that manages the mapping between portal_type and 
-       specific retrievers for a single plone instance and allows to trigger
-       retrieving for an object or the whole site.
-    """
-
-    def registerRetriever(portal_type, retriever_name):
-        """Registers the retriever to be called on objects of portal_type.
-
-            portal_type: portal type to assign retriever to
-            retriever_name: Name of a retriever as registered at the global 
-                            retriever registry, or None to remove assignment
-            Returns None
-
-            Raises KeyError if the portal_type or retriever name is invalid.
-
-            If the portal_type already has a registered retriever, the
-            registration will be overwritten.
-
-        """
-
-    def isRetrieverForType(retriever_name, portal_type):
-        """Tells if the given retriever name is the retriever for this type.
-
-           Returns True or False.
-        """
-
-    def listSupportedTypes():
-        """Returns a list of portal_types that are currently supported by
-           this retrieve manager.
-        """
+    """Utility to perform link retrieval."""
 
     def retrieveObject(object):
         """Retrieves the links from the given object."""

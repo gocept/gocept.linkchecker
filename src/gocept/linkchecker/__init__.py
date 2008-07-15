@@ -31,15 +31,10 @@ def initialize_content(context):
                           container_filter=filterLinkManagerAddable
         )
 
-def initialize_retrievers(context):
-    from gocept.linkchecker import retrievers
-    retrievers.register()
-
 
 def initialize(context):
     initialize_tool(context)
     initialize_content(context)
-    initialize_retrievers(context)
     DirectoryView.registerDirectory('skins', globals())
     
 

@@ -3,88 +3,74 @@
 # $Id$
 """CMF link checker tool - link retriever functions"""
 
-from gocept.linkchecker.interfaces import IRetriever
-from gocept.linkchecker.utils import retrieveHTML, retrieveSTX, \
-     retrieveAllRichTextFields, updateAllRichTextFields
-from gocept.linkchecker.retrievemanager import GlobalRegistry
+import Products.ATContentTypes.content.event
+import Products.ATContentTypes.content.link
+import gocept.linkchecker.interfaces
+import gocept.linkchecker.utils
+import zope.component
+import zope.interface
 
-class RetrieverLink(object):
-    """CMFDefault.Link retriever
-    
-    Also works for HelpCenterLink, though this has attribute url instead of
-    remoteUrl.
 
-    """
-    __implements__ = (IRetriever,)
+class Link(object):
+    """Retriever for ATCT Link objects."""
 
-    name = "CMFDefault.Link"
-    defaults = ["Link",]
+    zope.component.adapts(Products.ATContentTypes.content.link.ATLink)
+    zope.interface.implements(gocept.linkchecker.interfaces.IRetriever)
 
-    def retrieveLinks(self, object):
+    def __init__(self, context):
+        self.context = context
+
+    def retrieveLinks(self):
         """Finds all links from the object and return them."""
-        try:
-            return [object.getRemoteUrl()]
-        except AttributeError:
-            # Incompatible content selected ... XXX report warning here
-            try:
-                return [object.getUrl()]
-            except AttributeError:
-                # Incompatible content selected ... XXX report warning here
-                return []
+        return [self.context.getRemoteUrl()]
 
-    def updateLink(self, oldurl, newurl, object):
+    def updateLink(self, oldurl, newurl):
         """Replace all occurances of <oldurl> on object with <newurl>."""
-        if object.getRemoteUrl() == oldurl:
-            object.setRemoteUrl(newurl)
+        if self.context.getRemoteUrl() == oldurl:
+            self.context.setRemoteUrl(newurl)
 
 
-class RetrieverEvent(object):
-    """CMFDefault.Event retriever"""
+class Event(object):
+    """Retriever for ATCT Event objects"""
 
-    __implements__ = (IRetriever,)
+    zope.component.adapts(Products.ATContentTypes.content.event.ATEvent)
+    zope.interface.implements(gocept.linkchecker.interfaces.IRetriever)
 
-    name = "CMFDefault.Event"
-    defaults = ["Event",]
-    
-    def retrieveLinks(self, object):
+    def __init__(self, context):
+        self.context = context
+
+    def retrieveLinks(self):
         """Finds all links from the object and return them."""
-        try:
-            links = [object.event_url()]
-        except AttributeError:
-            # Incompatible content selected ... XXX report warning here
-            links = []
-
-        for link in retrieveAllRichTextFields(object):
+        links = [self.context.event_url()]
+        for link in gocept.linkchecker.utils.retrieveAllRichTextFields(
+                self.context):
             links.append(link)
-
         return links
 
-    def updateLink(self, oldurl, newurl, object):
+    def updateLink(self, oldurl, newurl):
         """Replace all occurances of <oldurl> on object with <newurl>."""
         if self.event_url() == oldurl:
-            self.setEventUrl(newurl)
-        updateAllRichTextFields(oldurl, newurl, object)
+            self.context.setEventUrl(newurl)
+        gocept.linkchecker.utils.updateAllRichTextFields(
+            oldurl, newurl, self.context)
 
 
-class RichTextRetriever(object):
-    """Retriever for documents with one or more RichText widgets."""
+class ATGeneral(object):
+    """General retriever for Archetypes that extracts URLs from (rich) text
+    fields.
+    """
 
-    __implements__ = (IRetriever,)
+    zope.component.adapts(Products.Archetypes.atapi.BaseContent)
+    zope.interface.implements(gocept.linkchecker.interfaces.IRetriever)
 
-    name = 'RichText'
-    defaults = ['Document', 'News Item']
+    def __init__(self, context):
+        self.context = context
 
-    def retrieveLinks(self, object):
+    def retrieveLinks(self):
         """Finds all links from the object and return them."""
-        return retrieveAllRichTextFields(object)
+        return gocept.linkchecker.utils.retrieveAllRichTextFields(self.context)
 
-    def updateLink(self, oldurl, newurl, object):
+    def updateLink(self, oldurl, newurl):
         """Replace all occurances of <oldurl> on object with <newurl>."""
-        updateAllRichTextFields(oldurl, newurl, object)
-
-
-def register():
-    """register retrievers"""
-    GlobalRegistry.register(RetrieverLink())
-    GlobalRegistry.register(RetrieverEvent())
-    GlobalRegistry.register(RichTextRetriever())
+        gocept.linkchecker.utils.updateAllRichTextFields(
+            oldurl, newurl, self.context)

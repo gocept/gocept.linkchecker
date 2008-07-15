@@ -20,7 +20,6 @@ class TestSetup(LinkCheckerTestCase):
         b.getControl(name='__ac_password').value = self.default_password
         b.getControl(name='submit').click()
         b.open(self.portal.absolute_url())
-        import pdb; pdb.set_trace() 
         self.assert_(b.getLink('Link management'))
         self.assert_(b.getLink('My links'))
         self.assert_(b.getLink('Links'))

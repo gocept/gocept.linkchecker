@@ -21,4 +21,8 @@
   <five:deprecatedManageAddDelete class=".retrievemanager.RetrieveManager"/>
   <five:deprecatedManageAddDelete class=".LinkCheckerTool.LinkCheckerTool"/>
 
+  <adapter factory=".retrievers.Event"/>
+  <adapter factory=".retrievers.Link"/>
+  <adapter factory=".retrievers.ATGeneral"/>
+
 </configure>
