@@ -49,7 +49,7 @@ class Event(object):
 
     def updateLink(self, oldurl, newurl):
         """Replace all occurances of <oldurl> on object with <newurl>."""
-        if self.event_url() == oldurl:
+        if self.context.event_url() == oldurl:
             self.context.setEventUrl(newurl)
         gocept.linkchecker.utils.updateAllRichTextFields(
             oldurl, newurl, self.context)
