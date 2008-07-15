@@ -86,8 +86,25 @@ class LinkCheckerTest(LinkCheckerTestCase):
         ob = makeContent(self.portal, portal_type="Document", id="asdf")
         ob.setText(text)
 
-        links_ob = retrievers.ATGeneral(ob).retrieveLinks()
+        retriever = retrievers.ATGeneral(ob)
+        links_ob = retriever.retrieveLinks()
         self.assertEqualLinks(links, links_ob)
+
+        # The retriever can also update URLs
+        retriever.updateLink('http://www.asdf.org', 'http://foo.org')
+        self.assertEquals(ob.getText(),
+            """<a href="http://foo.org">asdf</a> """
+            """<a href="http://www.bauhaus.de">asdf</a> """
+            """<a href="ftp://www.goodbye.de">asdf</a>"""
+            """<img src="http://www.google.de/img.png" />""")
+
+        # As this goes through various decoding cycles, we need to be careful
+        # about encodings:
+        ob.setText(u'<a href="asdf.org">\xf6</a>')
+        retriever.updateLink('asdf.org', 'bsdf.org')
+        # AT converts to utf-8 encoded byte strings internally
+        self.assertEquals(ob.getText().decode('utf-8'),
+                          u'<a href="bsdf.org">\xf6</a>')
 
     def test_document_stx_retriever(self):
         self.loginAsPortalOwner()

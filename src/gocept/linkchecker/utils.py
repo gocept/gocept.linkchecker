@@ -179,11 +179,10 @@ def updateAllRichTextFields(old_url, new_url, object):
 
 def updateOneRichTextField(old_url, new_url, object, field):
     """Updates all occurances of old_url with new_url."""
-    text = field.getRaw(object)
-
+    text = field.getRaw(object).decode('utf-8')
     # We can only handle HTML now.
-    text = """<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-    <linkcheckerroot>%s</linkcheckerroot>""" % text
+    text = u"""<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    <linkcheckerroot912ec803b2ce49e4a541068d495ab570>%s</linkcheckerroot912ec803b2ce49e4a541068d495ab570>""" % text
     parser = lxml.etree.HTMLParser()
     tree = lxml.etree.parse(StringIO.StringIO(text), parser)
     # links
@@ -194,9 +193,9 @@ def updateOneRichTextField(old_url, new_url, object, field):
     for image in tree.getiterator("img"):
         if image.get("src") == old_url:
             image.set("src", new_url)
-    text = lxml.etree.tostring(tree)
-    text = text.replace('<html xmlns="http://www.w3.org/1999/xhtml"><body><linkcheckerroot>', '')
-    text = text.replace('</linkcheckerroot></body></html>', '')
+    text = lxml.etree.tostring(tree, encoding=unicode)
+    text = text.replace('\n<html xmlns="http://www.w3.org/1999/xhtml"><body><linkcheckerroot912ec803b2ce49e4a541068d495ab570>', '')
+    text = text.replace('</linkcheckerroot912ec803b2ce49e4a541068d495ab570></body></html>', '')
     field.set(object, text)
 
 
