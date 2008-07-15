@@ -1,0 +1,439 @@
+CMFLinkChecker 2.1 (unreleased)
+
+  New features
+
+    - Added conceptual difference between a link and a URL. This allows us to
+      update links centrally and also to correctly highlight links in the
+      content area.
+
+    - Some code refactorings and source cleanup.
+
+
+CMFLinkChecker 2.0 (2006-06-27)
+
+  New features 
+
+    - Added methods that report all links in the database, enabling the LMS to
+      fully synchronize with its clients.
+
+    - Added a RichTextRetriever to retrievers.py, which can search for links
+      in content types with a RichTextWidget with the name 'body' (patch by
+      Maurits van Rees)
+
+    - Added a member schema to interfaces.py which CMFMembers schould include
+      to support CMFLinkChecker. This is a temporary fix, we would like to 
+      store the whole CMFLinkChecker information inside portal_linkchecker.
+
+    - Configlet: The configuration page of the retrievers was moved to a
+      second tab. An information frame was introduced, which is sent by
+      the LMS. It will be used to tell you if there are updates
+      available or maintainance work needed.
+
+    - XMLRPC protocol version: With a new LMS protocol version, the
+      linkchecker now validates the protocol version.
+
+    - CMFLinkChecker now supports PloneHelpCenter (patch by Maurits van
+      Rees).
+
+    - Added function retrieveAllRichTextFields that can be used by all
+      retrievers, just like the retrieveSTX and retrieveHTML functions.
+      It finds all fields that use the RichTextWidget and extracts links
+      from there trying both retrieveSTX and retrieveHTML (patch by
+      Maurits van Rees).
+
+ Bugs fixed
+
+    - Reindex the portal catalog's portal_linkchecker_uid index upon crawling
+      the site. Per-color link overviews work reliably now.
+
+    - Uninstall the linkchecker skin layer together with the product. 
+
+    - Added default actions and validators in personalize_form (patch by
+      Maurits van Rees)
+
+    - It is now possible to re-register retrievers; used to raise ValueError
+      (fixes bug #3293, reported by Martijn Pieters)
+
+    - Using toLocalizedTime instead of toPortalTime (patch by Maurits van
+      Rees).
+
+    - portlet_links.pt is now a Plone 2.1 portlet (patch by Maurits van Rees).
+
+    - In the tests dir it uses self.portal instead of the deprecated
+      self.getPortal() (patch by Maurits van Rees).
+
+    - Fixed Event retriever for Plone 2.1
+
+    - database.configure will not longer fail with AttributeError when first
+      called (reported by Martijn Pieters, bug# 3284)
+   
+    - Displaying of errormessages: If an error message contains the URL, the
+      URL is replaced by '~' (fixes bug #2403, reported by Simon Pamies)
+
+    - Fixed the UID handling. In previous versions CMFLinkChecker would
+      generate its own uids. We now either use Archetypes' UID() or a class
+      provided UID (see IUIDProivder). Fixes bug #3007.
+
+    - Fixed lc_linksToMe portlet with non-archetypes objects implementing UID
+      (Fixes bug #2806, reported by Gilles Lenfant).
+
+
+CMFLinkChecker 1.9.3 (2005-06-22)
+
+  New features
+
+    - Added compatibility to LinguaPlone: LinguaPlone hides documents from
+      other languages so we added the Language='all' query to all
+      portal_catalog queries.
+
+  Bugs fixed
+
+    - Extended anti-normalization of urls for content highlighting a bit.
+
+    - Fixed removal of links: Links were never unregistered when they got
+      removed from a document. This also resulted in weird statistics.
+
+    - Improved interoperability with AlphaFlow: reindex doesn't fail if the
+      user doesn't have the Modify portal content permission.
+
+    - Updated french translations (provided by Nicolas Laurance)
+
+    - Crawling is not possible when no connection to the lms can be 
+      established, therefore not showing button in config let (bug #2544)
+
+    - Unassigning retrievers in configlet is possible now (bug #2576)
+
+
+CMFLinkChecker 1.9.2 (2005-04-12)
+
+  New features
+
+    - Integrated Archetype support (ATDocument retriever and automatic 
+        retrieving of all BaseObjects)
+
+    - Admin can switch on/off notifications in configlet
+
+    - Added support for kupu's 'resolveuid' method to find backreferences.
+
+  Bugs fixed
+
+    - Upgrading old Sites (pre CMFlinkChecker 1.9) should work better now
+      (bug #2400)
+
+    - Renaming of a Plone site with installed CMFLinkChecker works now
+        (bug #2528)
+
+    - Matured Mail notification (fixes bug #2439, reported by Simon Pamies)
+
+    - Fixed balanced score card linking to correct detail pages.
+
+    - Fixed None filter when retrieving objects from the catalog
+
+
+CMFLinkChecker 1.9.1 (2005-02-24, not publicly released)
+
+    - Do not break on certain Internet Explorer versions (java script error)
+
+    - Batching of link lists
+
+    - Improved relative to absolute path mangling 
+
+    - Do not break if on certain overview pages if there are no links in the
+      system.
+
+    - Broken links portlet gets a scrollbar if it becomes too wide
+
+
+CMFLinkChecker 1.9 (2005-02-02)
+
+    - 1.9 will beome 2.0 once it's stable
+
+    - Complete refactoring to integrate an external link monitoring server
+      (lms) instead of doing checks in a Zope thread.
+
+    - Performance improvements in all overview pages
+
+    - In-content highlighting of link-state (green, orange, red, grey)
+
+    - Bi-directional capabilities added (referenced-by portlet)
+    - re-install via quickinstaller possible
+
+
+CMFLinkChecker 1.1
+
+    -   Added french translation file. (Thanks to Nicolas)
+
+    -   Updated Bot-String for http protocol. (Thanks to Nicolas
+        again)
+
+
+CMFLinkChecker 1.1beta1
+
+    -   Fixed the LinksForAuthenticatedUser report.
+
+    -   Added configuration mechanism for the retrievers. (Bugs 1241, 2020)
+
+    -   Changed registration process for retrievers.
+
+    -   Fixed determining the type of some content by using portal_type 
+        instead of Type(). (Bug 2019)
+
+    -   Started cleaning up I18N translations and providing a clean .POT file.
+
+    -   Fixed uninstalling to completely remove any traces of 
+        the linkchecker from a Plone site. Also made the installer
+        and uninstaller a bit more verbose in the quickinstaller log.
+
+    -   Added titles for all templates to show up in the breadcrumbs
+        instead of their Ids.
+
+    -   Added correct security assertions for the scripts and templates
+        in the skin.
+
+    -   Fixed small problem with FindSupport in LinkInfo.py (thanks to Ira
+        Fuchs).
+
+
+CMFLinkChecker 1.0rc8
+
+    -   Refactoring of retrievers.py that holds if CMFDefault
+        and CMFCalendar are not installed. (This may break existing
+        instances.)
+
+    -   Minor fixes in WikiRetriever code.
+
+    -   Fix for mail information that destroyed LinkInfo objects
+
+    -   Fixed bug that made "Crawl site" die if the catalog
+        query returned items that returned None for getObject()
+
+    -   Removed all _blank links as those proved to be not very user friendly.
+
+    -   Introduced unit tests (finally) for most components.
+
+
+CMFLinkChecker 1.0rc7
+
+    -   Fixed the thread "staying alive" feature.
+
+    -   Fixed the permission for checking links for ManagePortal to "View"
+
+    -   Not comitting checker transactions when the checker failed.
+
+    -   Fixed a bug making checkers die when meeting ReadConflictErrors when
+        loading a LinkInfo object from the database. ReadConflicts are now
+        logged and the link is rescheduled. An additional one second pause is
+        inserted as well. 
+
+    -   Introduced a new field in the linkchecker configuration view that shows
+        the last 5 URLs that have been checked.
+
+    -   Removed HEAD requests for HTTP because a lot of servers (including a
+        famous python based open source web application server) give wrong
+        responses.
+
+    -   Added a couple of Dia UML diagrams that document the dependency and
+        behaviour of the linkchecker components.
+
+
+CMFLinkChecker 1.0rc6
+
+    -   Added forgotten Docstring to 'checkLink' method.
+
+    -   Some more robust exception handling in the HTTP protocol.
+
+    -   Added logging for unhandled exceptions.
+
+    -   Made threads run within an infinite loop for
+        more convenient exception behaviour.
+
+
+CMFLinkChecker 1.0rc5
+
+    -   Scheduling period given in hours instead of seconds.
+        Change this, if upgrading.
+
+    -   Scheduling period given in hours instead of seconds.
+        Change this, if upgrading
+
+    -   Fix for bug 1747: "activate checker thread"-button returns error
+        Buttons for thread activation are nicely disabled/greyed now.
+
+    -   Made checker links release lock after quitting/dieing.
+
+    -   Refactored "resolveRelativeLink" 
+
+        *  Fix for mailto: links
+
+        *  More stable and predictive behaviour of resolving relative Links
+           (for each component in the URl)
+
+    -   Made button for starting worker threads only available
+        if more threads can be started (defaults to 1)
+
+    -   Added .pot files and danish .po files (Thanks to Anton Stonor)
+
+    -   Code cleanup
+
+    -   Refactored threading code
+
+    -   Setting metadata for transaction, so things show up in the undo log.
+
+    -   Added "crawl my site" to the control panel by popylar request.
+
+    -   Fixed bug 1698 (funny character in socket error message).
+
+    -   Fixed mail notifications. They were broken because runMailNotifications
+        is returning objects not brains.
+
+    -   Made portlet for displaying link status only show up for non-Anonymous
+        users.
+
+    -   Made the runMailNotification method not use catalog result brains, but
+        real links objects. (Broken reference to metadata field)
+
+    -   Updated german .po files
+
+
+CMFLinkChecker 1.0rc4
+
+    -   Corrected packaging mistake that forgot shorturls.py.
+
+
+CMFLinkChecker 1.0rc3
+
+    -   Added more details to the balanced score card: Site wide administrator
+        can check for all documents that contain at least one link in a certain
+        state and check for all links in a certain state.
+
+    -   More I18N
+
+    -   Document links now have a title attribute that display the
+        DC::Description field.
+
+    -   The balanced score card only shows colors when at least one link
+        matches the state. Otherwise the entries remain black.
+
+    -   All URLs in the overviews are links now (with target="_blank").
+
+    -   All Author/Owner information fields are mailto: links now
+
+    -   URL display in lc_object_status is 50 characters long now (increased
+        from 30) but the algorithm to shorten them has been implemented in a
+        more intelligent fashion. (See shorturls.py)
+
+
+CMFLinkChecker 1.0rc2
+
+    -   Fixed for Python2.3 (socket module raising exceptions)
+
+    -   Fixed handling of Timeout exception in HTTP code
+
+
+CMFLinkChecker 1.0rc
+
+    - Added example to support your own content types. (See
+      examples/WikiRetriever, just copy or link this into your Products
+      directory.)
+
+    - Changed viewing behaviour of portlet.
+
+    - Fixed relative link handling.
+
+    - Fixed security handling for getLinksForObject and findLinksForObject.
+
+
+CMFLinkChecker 1.0beta
+
+    - Completed configlet for starting threads and getting status information.
+
+    - Added support for email notifications to the authors.
+    
+    - Added nice icon.
+
+    - Made the default method for HTTP handling "HEAD". Fallback is "GET" if
+      the server responds with a "405 Method not allowed"
+
+    - Added automatic update of link lists for each object when edited.  This
+      works only automatically for the builtin types. 
+
+      See Extensions/Install how to override the default actions of the
+      CMFFormController to activate this feature for your own content types.
+
+    - Removed tabs/border from Balanced Score Card.
+
+    - Made HTTP Checker available for HTTPS. Requires SSL sockets to be
+      available see http://www.python.org/doc/2.2/lib/module-httplib.html on
+      how to activate them if your python doesn't support them.
+
+    - Made some changes to the httplib for better blocking behaviour, still
+      need to have better timings in the checker thread.
+
+      A new socket class that handles timeouts earlier doesn't DOS the worker
+      threads by waiting one minute for a connect, but times out at 15
+      seconds.
+
+    - Fixed Bug in UID generation (forgot to unwrap objects and not acquire
+      UIDs)
+
+    - Some cleanup on ILinkInformation
+
+    - Added FTP support (good bandwith usage by calling REST if the server
+      supports it.)
+
+    - Made protocol support pluggable
+
+    - Removed redundant status column
+
+    - Added colors to overview portlet
+
+    - Fixed (un)installation 
+
+    - Fixed permissions for "My Links" and "Link" tab
+
+
+CMFLinkChecker 0.3beta
+
+    - Some code cleanup (legal stuff, coding style)
+
+    - Debugging output available via zLOG.BLATHER
+
+    - Introduced the automatic scheduler. You can start it by activating a
+      scheduler thread in the ZMI (Link Checking). It assures to check every
+      known link at least once within the given period of time as configured
+      in the configlet.
+
+    - Introduced "configlet" to configure the automatic scheduler and default
+      URI prefix.
+
+    - Introduced "balanced score card" that gives strategic information about
+      the current state of links in the site.
+
+    - Introduced "My (broken) Links" which gives an author an overview on all
+      his broken links.
+
+    - Using a UID to maintain stable references to the objects.
+
+    - Using a ZCatalog to query LinkInfo objects.
+
+    - Using an ObjectManager for the LinkInfo objects now. 
+
+    - Some usability tweaks on the link list as proposed by Alexander Limi.
+
+    - Fixed UnboundLocalError in Document retriever (#821984)
+
+    - Fixed possible crash of checker thread when urlsplit didn't find a
+      hostname
+
+    - Bug 1503: Included a modified version for prepending a default element
+      on URLs without hostname ("relative" links). Thanks to Sebastian Stark.
+
+    - Updated documentation
+
+    - Catching errors when parsing HTML now to avoid breaking the link
+      discovery process.
+
+
+CMFLinkChecker 0.1
+
+    -   Started CMFLinkChecker project.

@@ -1,0 +1,234 @@
+# translation of linkchecker-da.po to Danish
+# Gettext Message File for CMFLinkChecker.
+msgid ""
+msgstr ""
+"Project-Id-Version: linkchecker-da\n"
+"Last-Translator: Anton Stonor <stonor@giraffen.dk>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Language-code: da\n"
+"Language-name: Danish\n"
+"Preferred-encodings: latin1\n"
+"Domain: linkchecker\n"
+
+msgid "OK"
+msgstr "OK"
+
+msgid "Yes"
+msgstr "Ja"
+
+msgid "No"
+msgstr "Nej"
+
+msgid "Save"
+msgstr "Gem"
+
+msgid "Cancel"
+msgstr "Fortryd"
+
+msgid "grey"
+msgstr "Ukendt"
+
+msgid "red"
+msgstr "Ingen forbindelse"
+
+msgid "green"
+msgstr "Virker fint"
+
+msgid "orange"
+msgstr "Engang imellem ingen forbindelse"
+
+msgid "heading_mail_setup"
+msgstr "Indstillinger for Linkchecker"
+
+msgid "description_mail_setup"
+msgstr "Opsætning af Linkchecker til dette site"
+
+msgid "label_pref_details"
+msgstr "Finindstilling af Linkchecker"
+
+msgid "label_pref_period"
+msgstr "Linkkontrol-interval"
+
+msgid "description_pref_period"
+msgstr "Den tid, der højest må gå mellem hver kontrol af alle links"
+
+msgid "label_check_seconds"
+msgstr "Sekunder"
+
+msgid "label_uri_prefix"
+msgstr "Standard URI forstavelse"
+
+msgid "description_uri_prefix"
+msgstr "Den del af adressen, der står foran de relative links (for eksempel http://forstavelse.dk/foo/bar)"
+
+msgid "Activate scheduler thread"
+msgstr "Aktiver planlægnings-programmet"
+
+msgid "Activate checker thread"
+msgstr "Aktiver kontrol-programmet"
+
+#XXX
+msgid "label_error_output"
+msgstr "Fejl" 
+
+msgid "legend_thread_details"
+msgstr "Trådkontrol"
+
+msgid "label_thread_status"
+msgstr "Trådstatus"
+
+msgid "label_queue_status"
+msgstr "Køstatus"
+
+msgid "description_queue_status"
+msgstr "Ca. $queuesize links står i kø for at blive kontrolleret."
+
+msgid "header_broken_links"
+msgstr "Mine døde links"
+
+msgid "header_status_broken_links"
+msgstr "Status: $statusvalue"
+
+msgid "description_link_overview"
+msgstr "Oversigt over dine døde links og billeder."
+
+msgid "link_header_reason"
+msgstr "Beskrivelse"
+
+msgid "link_header_state"
+msgstr "Status"
+
+msgid "link_header_update"
+msgstr "Seneste opdatering"
+
+msgid "link_header_documents"
+msgstr "Dokumenter"
+
+#XXX
+msgid "Unkown"
+msgstr "Ukendt"
+
+msgid "Not Found"
+msgstr "Ikke fundet"
+
+msgid "Forbidden"
+msgstr "Adgang ikke tilladt"
+
+msgid "heading_lc_preferences"
+msgstr "Indstillinger for Linkchecker"
+
+msgid "description_lc_preferences"
+msgstr "Dine indstillinger af linkcheckeren."
+
+msgid "legend_member_details"
+msgstr "Rapporter"
+
+msgid "label_frequency"
+msgstr "Rapport-tidspunkter"
+
+msgid "description_frequency"
+msgstr "Rapporter bliver sendt med e-mail hver dag på de klokkeslet, du vælger her. Hvis du ikke vælger nogle klokkeslet, vil du ikke modtage nogen rapporter."
+
+msgid "description_report_detail"
+msgstr "Vælg hvor mange oplysninger, der skal med i rapporterne. Links med den status, du krydser af, kommer med."
+
+msgid "label_last_changes"
+msgstr "Vis kun ændringer siden sidste rapport"
+
+msgid "description_last_changes"
+msgstr "Vælger du 'Ja' vil rapporten kun medtage ændringer siden den seneste."
+
+msgid "label_last_report"
+msgstr "Sidste rapport"
+
+msgid "description_last_report"
+msgstr "Den sidste rapport blev sendt d. $reportdate ."
+
+msgid "label_email_conf"
+msgstr "Advarsel: ingen e-mailadresse!"
+
+msgid "description_email_conf"
+msgstr "Du har ikke indtastet en e-mailadresse og modtager ikke nogen rapporter, før du har indtastet den. Gå til $mypreflink og indtast den."
+
+msgid "header_linkreport"
+msgstr "Linkkontrol-rapport for $portaluser."
+
+msgid "description_report"
+msgstr "Dette er din rapport for kl. $reporttime "
+
+msgid "description_report_changes_only"
+msgstr "og indeholder alle ændringer siden den seneste rapport fra "
+
+msgid "description_report_changes"
+msgstr "og indeholder alle links med den ønskede status."
+
+msgid "description_report_date"
+msgstr "Denne rapport blev genereret $generated . Linkcheckeren overvåger sitet $portal."
+
+msgid "description_no_links"
+msgstr "Der er ingen links med denne status lige nu."
+
+msgid "description_no_linkstate"
+msgstr "Ingen links har fået denne status siden sidste rapport."
+
+# second revision 
+
+msgid "heading_balanced_score_card"
+msgstr "Linkoversigt"
+
+msgid "description_balanced_score_card"
+msgstr "Denne oversigt giver dig overblik over links på sitet."
+
+msgid "label_total_links"
+msgstr "Links i alt"
+
+msgid "label_total"
+msgstr "I alt:"
+
+msgid "label_distinct"
+msgstr "Forskellige:"
+
+msgid "label_total_documents"
+msgstr "Dokumenter"
+
+msgid "label_documents_links"
+msgstr "Dokumenter pr. link"
+
+msgid "label_min"
+msgstr "Minimum:"
+
+msgid "label_max"
+msgstr "Maksimum:"
+
+msgid "label_avg"
+msgstr "Gennemsnit:"
+
+msgid "label_links_documents"
+msgstr "Links pr. dokument"
+
+msgid "label_links_in_state"
+msgstr "Links med status ..."
+
+msgid "label_documents_in_state"
+msgstr "Dokumenter med links med status ..."
+
+msgid "label_details"
+msgstr "Detaljer"
+
+msgid "description_document_by_status"
+msgstr "Liste over dokumenter med links i denne status"
+
+msgid "link_header_total_links"
+msgstr "Antal links i alt"
+
+msgid "link_header_links"
+msgstr "Antal links med denne status"
+
+msgid "link_header_owner"
+msgstr "Ejer"
+
+msgid "link_header_document"
+msgstr "Dokument"

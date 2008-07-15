@@ -1,0 +1,13 @@
+=====================================
+Dependencies for using CMFLinkChecker
+=====================================
+
+* Plone 2.0
+
+* Zope 2.7
+
+* Python 2.3
+
+* Archetypes
+
+* a running lms

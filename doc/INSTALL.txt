@@ -1,0 +1,116 @@
+==================================
+CMFLinkChecker Installation Manual
+==================================
+
+Meta
+====
+
+Copyright (c) 2003-2006 gocept gmbh & co. kg
+See also LICENSE.txt
+
+:Valid for:  CMFLinkChecker 2.1
+:Author:     Christian Zagrodnick <cz@gocept.com>
+:Author:     Christian Theune <ct@gocept.com>
+:CVS:        $Id$
+
+
+Architectural Notes
+===================
+
+CMFLinkChecker does not check any links by itself. [*] The actual link
+checking is done by a separate process, in fact a separate product, called
+Link Monitoring Server (lms). There is a public lms available from gocept,
+running at http://lms.gocept.com/v2.
+
+The lms software is available from http://www.gocept.com.
+
+.. [*] It used to check links inside Zope until version 1.9.
+
+
+Prerequisites
+=============
+
+To allow updating links centrally, we require lxml to be installed. You can
+get lxml for your Python installation easily by using easy_install.
+
+Visit http://peak.telecommunity.com/DevCenter/EasyInstall for more information
+about easy_install.
+
+
+Installation
+============
+
+1. Extract the archive to your Products directory and reastart Zope.
+
+2. In your Plone portal go to "plone setup / Add/Remove Products"
+
+3. Install CMFLinkChecker (NOTE: depending on the size of your Data.fs this
+   might take quite a long time, since we are adding a new index to the
+   portal_catalog and reindexing it during installation).
+
+
+Configuration
+=============
+
+After the installation there will be a new configlet "Link Management" in the
+"site setup"; go there.
+
+Default URL prefix
+++++++++++++++++++
+
+The default URL prefix is used to resolve relative or incomplete URLs.
+Basically you enter here how your Plone site is accessed usually (i.e.
+something like http://www.mycompany.com).  This is of particular importance if
+you are authoring with a different URL than the public site. 
+
+If you are just testing the prefix might be something like
+http://mytestserver:24932/mytestsite
+
+Note that the lms must be able to reach the server with this URL. When you're
+using a public lms (like http://lms.gocept.com) setting the prefix to
+http://localhost:332 is pointless. 
+
+
+Link Monitoring Server
+++++++++++++++++++++++
+
+Enter the address and the client id of your lms. 
+
+Using gocept's public lms
+-------------------------
+
+gocept provides a public lms for everybody to use. The "Link Management"
+configlet provides a link to a web registration form.
+
+Setting up your own lms
+-----------------------
+
+Download lms from http://www.gocept.com, more information is inside the lms
+package.
+
+Crawling
+++++++++
+
+When everything is configured right you might want to locate all the existing
+links and send them to the server.  You should do this after the first
+installation or when unsure if all links are in the link database (i.e. after
+retriever assignment). 
+
+Please be aware that crawling consumes a considerable amount of time and might
+be very resource intensive.
+
+Retriever assignments
++++++++++++++++++++++
+
+You can set a mapping between portal_type and retriever here. CMFLinkChecker
+comes with a few preconfigured. 
+
+A **retriever** is the adapter between your content types and CMFLinkChecker:
+it *retrieves* the links of a content object and passes them to
+CMFLinkChecker. Since there are different content types there are different
+retrievers.
+
+Note: if you have installed ATContentTypes via the site policy the portal
+types are different from the default portal types, i.e. *Document* is no
+longer the CMFDefault.Document but ATDocument. This is not a problem per se,
+but you need to be careful when assigning retrievers
