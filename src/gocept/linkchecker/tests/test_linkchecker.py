@@ -70,10 +70,15 @@ class LinkCheckerTest(LinkCheckerTestCase):
             self.failUnless(ILink.isImplementedBy(l[0]))
             self.failUnless(l[0].url in links)
 
-    def test_crawl_fail(self):
+    def test_crawl_offline(self):
+        self.loginAsPortalOwner()
         lc = getToolByName(self.portal, 'portal_linkchecker')
         lc.database.configure(clientid='does-not-exist')
-        self.assertRaises(RuntimeError, lc.retrieving.retrieveSite)
+
+    def test_sync_failing(self):
+        self.loginAsPortalOwner()
+        lc = getToolByName(self.portal, 'portal_linkchecker')
+        self.assertRaises(AttributeError, lc.database.sync)
 
     def test_byobject(self):
         self.loginAsPortalOwner()

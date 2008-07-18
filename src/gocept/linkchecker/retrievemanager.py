@@ -43,7 +43,7 @@ class RetrieveManager(SimpleItem):
     # IRetrieveManager
 
     security.declarePublic('retrieveObject')
-    def retrieveObject(self, object):
+    def retrieveObject(self, object, online=True):
         # Check for ModifyPortalContent-Permission on context object.
         # This is dangerous, but I think I know what I'm doing.
         sm = getSecurityManager()
@@ -57,7 +57,7 @@ class RetrieveManager(SimpleItem):
         retriever = gocept.linkchecker.interfaces.IRetriever(object, None)
         if retriever is not None:
             links = retriever.retrieveLinks()
-            database.registerLinks(links, object)
+            database.registerLinks(links, object, online)
 
     security.declarePublic('updateObject')
     def updateLink(self, old_link, new_link, object):
@@ -74,34 +74,25 @@ class RetrieveManager(SimpleItem):
     security.declareProtected(ManagePortal, 'retrieveSite')
     def retrieveSite(self):
         """Retrieves the links from all objects in the site."""
-        server = self.getParentNode().database._getWebServiceConnection()
-        if server is None:
-            raise RuntimeError, "The site could not be crawled because no " \
-                                "connection to the lms could be established."
-        server.setClientNotifications(False)
-
-        try:
-            database = self.getParentNode().database
-            objects = self.portal_catalog(Language='all')
-            os_ = len(objects)
-            i = 0
-            for ob in objects:
-                i += 1
-                zLOG.LOG("gocept.linkchecker", zLOG.BLATHER,
-                         "Site Crawl Status",
-                         "%s of %s (%s)" % (i, os_, ob.getPath()))
-                ob = ob.getObject()
-                if ob is None:
-                    # Maybe the catalog isn't up to date
-                    continue
-                self.retrieveObject(ob)
-                if not i % 100:
-                    # Memory optimization
-                    transaction.savepoint()
-            # Remove unused urls
-            database.cleanup()
-        finally:
-            server.setClientNotifications(True)
+        database = self.getParentNode().database
+        objects = self.portal_catalog(Language='all')
+        os_ = len(objects)
+        i = 0
+        for ob in objects:
+            i += 1
+            zLOG.LOG("gocept.linkchecker", zLOG.BLATHER,
+                     "Site Crawl Status",
+                     "%s of %s (%s)" % (i, os_, ob.getPath()))
+            ob = ob.getObject()
+            if ob is None:
+                # Maybe the catalog isn't up to date
+                continue
+            self.retrieveObject(ob, online=False)
+            if not i % 100:
+                # Memory optimization
+                transaction.savepoint()
+        # Remove unused urls
+        database.cleanup()
 
     def supportsRetrieving(self, object):
         """Tells if the object is supported for retrieving links."""
