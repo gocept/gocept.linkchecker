@@ -120,6 +120,7 @@ class LinkDatabase(BTreeFolder2):
             self.manage_addProduct['ZCatalog'].\
                     manage_addZCatalog('url_catalog', 'URL catalog')
         indexes = [('url', 'FieldIndex'),
+                   ('links', 'KeywordIndex'),
                    ('registered', 'FieldIndex')]
         insertIndexes(self.url_catalog, indexes)
 
@@ -159,7 +160,7 @@ class LinkDatabase(BTreeFolder2):
 
     security.declareProtected(
         permissions.USE_LINK_MANAGEMENT, 'registerLinks')
-    def registerLinks(self, links, object):
+    def registerLinks(self, links, object, online=True):
         """Registers links for an object at the database."""
         sm = getSecurityManager()
         if not sm.checkPermission(
@@ -169,7 +170,9 @@ class LinkDatabase(BTreeFolder2):
 
         for link in links:
             self._register_link(link, object)
-        self._updateWSRegistrations()
+
+        if online:
+            self._updateWSRegistrations()
 
     def _register_link(self, link, object):
         link_id = gocept.linkchecker.utils.hash_link(link, object)
@@ -343,6 +346,12 @@ class LinkDatabase(BTreeFolder2):
         self._deleteURLs(urls)
 
     security.declareProtected(
+        permissions.ManagePortal, 'sync')
+    def sync(self):
+        lms = self._getWebServiceConnection()
+        lms.forceSynchronization()
+
+    security.declareProtected(
         permissions.ManagePortal, 'updateLinkStatus')
     def updateLinkStatus(self, url, state, reason):
         """XML-RPC connector for LMS"""
@@ -454,6 +463,9 @@ class LMSClient:
         self.client_id = client_id
         self.password = password
         self._server = ServerProxy(url)
+
+    def forceSynchronization(self):
+        self._server.forceSynchronization(self.client_id, self.password)
 
     def registerManyLinks(self, urls):
         result = []

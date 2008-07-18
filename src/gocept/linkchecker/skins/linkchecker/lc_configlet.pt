@@ -284,22 +284,26 @@
             </div>
 
             <div class="error"
-                tal:condition="not: conn/ok">
-                You cannot crawl your site for links because no connection to
-                the lms could be established.
+              tal:condition="not: conn/ok">
+              You cannot sync your site because no connection to
+              the LMS could be established.
             </div>
 
-            
-             <form action="lc_crawl" 
-                 tal:condition="conn/ok">
-                <input type="submit" class="context" 
-                    i18n:attributes="value" name="crawl"
-                    value="Crawl my site for all links" />
-            </form>
-        </fieldset>
-    </div>
-  </div>
-</div>
+            <form action="lc_crawl">
+              <input type="submit" class="context" 
+                i18n:attributes="value" name="crawl"
+                value="Crawl my site for all links"/>
 
-</body>
+              <input type="submit" class="context" 
+                i18n:attributes="value" name="sync"
+                tal:condition="conn/ok"
+                value="Synchronize my database with the LMS"/>
+            </form>
+
+          </fieldset>
+        </div>
+      </div>
+    </div>
+
+  </body>
 </html>

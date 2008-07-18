@@ -17,5 +17,5 @@ setup(
     zip_safe=False,
     license='ZPL 2.1',
     namespace_packages=['gocept'],
-    install_requires=['setuptools'],
+    install_requires=['setuptools', 'lxml'],
 )
