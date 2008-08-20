@@ -1,6 +1,7 @@
 from Products.CMFCore.utils import getToolByName
 
 lc = getToolByName(context, 'portal_linkchecker')
+rc = getToolByName(context, 'reference_catalog')
 portal_url = getToolByName(context, 'portal_url')()
 
 if not lc.isUserAllowed():
@@ -28,15 +29,9 @@ for url in urls:
     for b in brains:
         object_uids.append(b.object)
 
-
 objects = []
 for uid in object_uids:
-    try:
-        obj = lc.getObjectForUID(uid)
-    except KeyError:
-        # not registered
-        pass
-    else:
-        objects.append(obj)
+    obj = rc.lookupObject(uid)
+    objects.append(obj)
 
 return objects
