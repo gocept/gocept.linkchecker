@@ -67,7 +67,7 @@ class LinkCheckerTest(LinkCheckerTestCase):
         for doc in docs:
             l = lc.database.getLinksForObject(doc)
             self.assertEqual(len(l), 1)
-            self.failUnless(ILink.isImplementedBy(l[0]))
+            self.failUnless(ILink.providedBy(l[0]))
             self.failUnless(l[0].url in links)
 
     def test_crawl_offline(self):
