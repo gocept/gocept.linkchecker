@@ -108,7 +108,7 @@ InitializeClass(RetrieveManager)
 def update_links(event):
     object = event.object
     try:
-        link_checker = getToolByName(object, 'portal_linkchecker')
+        link_checker = getToolByName(object, 'portal_linkchecker').aq_inner
     except AttributeError:
         return
     if not link_checker.active:

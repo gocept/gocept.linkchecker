@@ -120,7 +120,6 @@ class LinkDatabase(BTreeFolder2):
             self.manage_addProduct['ZCatalog'].\
                     manage_addZCatalog('url_catalog', 'URL catalog')
         indexes = [('url', 'FieldIndex'),
-                   ('links', 'KeywordIndex'),
                    ('registered', 'FieldIndex')]
         insertIndexes(self.url_catalog, indexes)
 

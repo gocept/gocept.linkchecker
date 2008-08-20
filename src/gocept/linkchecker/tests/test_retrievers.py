@@ -10,6 +10,8 @@ from Products.Archetypes.tests.utils import *
 from Products.Archetypes.tests.test_sitepolicy import makeContent
 from Products.CMFCore.utils import getToolByName
 
+import zope.lifecycleevent
+import gocept.linkchecker.retrievemanager
 from gocept.linkchecker import retrievers
 
 from gocept.linkchecker.tests.base import LinkCheckerTestCase
