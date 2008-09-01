@@ -45,7 +45,7 @@ class Link(SimpleItem):
     def getURL(self):
         """Return the URL object this link refers to."""
         lc = getToolByName(self, "portal_linkchecker")
-        return lc.database.queryURLs(url=self.url)[0]
+        return lc.database.queryURLs(url=self.url)[0].getObject()
 
     def getObject(self):
         """Return a reference to the object."""

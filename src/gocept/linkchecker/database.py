@@ -167,11 +167,15 @@ class LinkDatabase(BTreeFolder2):
             raise Unauthorized, \
                 "Can't modify link registrations for this object."
 
+        link_objects = []
         for link in links:
-            self._register_link(link, object)
+            link_objects.append(self._register_link(link, object))
 
         if online:
-            self._updateWSRegistrations()
+            urls = [link.getURL()
+                    for link in link_objects
+                    if link is not None]
+            self._register_urls_at_lms(urls)
 
     def _register_link(self, link, object):
         link_id = gocept.linkchecker.utils.hash_link(link, object)
@@ -187,6 +191,7 @@ class LinkDatabase(BTreeFolder2):
             self._setObject(url_id, url)
         # Now we can add the link to the database 
         self._setObject(link_id, link)
+        return self[link_id]
 
     security.declarePrivate("_updateWSRegistrations")
     def _updateWSRegistrations(self):
@@ -195,20 +200,29 @@ class LinkDatabase(BTreeFolder2):
         May also register yet non-registered other links.
         """
         unregistered = self.queryURLs(registered=False)
+        unregistered = [x.getObject() for x in unregistered]
         # Nothing to do?
         if not unregistered:
             return
+        self._register_urls_at_lms(unregistered)
+
+    def _register_urls_at_lms(self, url_objects):
+        """Register the given URL objects at the LMS web service.
+        """
         # Do we have an LMS connection?
         lms = self._getWebServiceConnection()
         if lms is None:
             return
-        unregistered = [url.url for url in unregistered]
-        states = lms.registerManyLinks(unregistered)
+        urls = [url.url for url in url_objects]
+        states = lms.registerManyLinks(urls)
+        # The server *may* report the status of URls it already knows.
         for url, state, reason in states:
             state = WEBSERVICE_STATEMAP[state]
             url = self[gocept.linkchecker.utils.hash_url(url)]
-            url.registered = True
             url.updateStatus(state, reason)
+        # Mark all of the URLs as registered
+        for url in url_objects:
+            url.registered = True
 
     security.declarePrivate('unregisterLink')
     def unregisterLink(self, link, object):
