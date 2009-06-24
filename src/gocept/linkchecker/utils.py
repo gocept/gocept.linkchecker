@@ -71,8 +71,8 @@ def resolveRelativeLink(url, context):
         prefix = lc.database.defaultURLPrefix or context.REQUEST.BASE0
         if prefix.endswith('/'):
             prefix = prefix[:-1]
-        prefix += '/'.join(context.getPhysicalPath())
-        
+        portal_url = getToolByName(context, 'portal_url')
+        prefix += '/%s' % portal_url.getRelativeContentURL(context)
         # Make up for a deviation of Python's urljoin from the test cases given
         # in RfC 2396, Appendix C.
         if url.startswith('?'):
