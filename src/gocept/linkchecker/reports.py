@@ -79,7 +79,7 @@ class BaseReports(SimpleItem):
     def getGroupedLinksFor(self, user_id):
 
         catalog = getToolByName(self, 'portal_catalog')
-        lc = self.getLinkManager()
+        lc = getToolByName(self, 'portal_linkchecker')
         types = lc.retrieving.listSupportedTypes()
 
         # Find all objects this user is responsible for
