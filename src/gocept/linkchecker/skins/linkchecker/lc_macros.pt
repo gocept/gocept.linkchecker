@@ -149,7 +149,7 @@
               </td>
               
               <td tal:define="doc_uid link/object;
-                          docs python:catalog(portal_linkchecker_uid=[doc_uid], Language='all')">
+                          docs python:catalog(UID=doc_uid, Language='all')">
                 <tal:block repeat="doc docs">
                   <a class="navItem navLevel1"
                 tal:attributes="href doc/getURL;

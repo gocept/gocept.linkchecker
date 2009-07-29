@@ -80,11 +80,10 @@ class BaseReports(SimpleItem):
 
         catalog = getToolByName(self, 'portal_catalog')
         lc = getToolByName(self, 'portal_linkchecker')
-        types = lc.retrieving.listSupportedTypes()
 
         # Find all objects this user is responsible for
-        docs = catalog(Creator=user_id, portal_type=types, Language='all')
-        uids = [ lc.getUIDForBrain(x) for x in docs ]
+        docs = catalog(Creator=user_id, Language='all')
+        uids = [ x.UID for x in docs ]
         uids = filter(None, uids)
         links = lc.database.queryLinks(object=uids)
 
