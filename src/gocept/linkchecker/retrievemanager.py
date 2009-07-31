@@ -6,7 +6,7 @@
 # Zope imports
 import transaction
 import zope.interface
-import zLOG
+import gocept.linkchecker.log as log
 import zope.lifecycleevent.interfaces
 import zope.component
 from AccessControl import ClassSecurityInfo, getSecurityManager, Unauthorized
@@ -80,9 +80,7 @@ class RetrieveManager(SimpleItem):
         i = 0
         for ob in objects:
             i += 1
-            zLOG.LOG("gocept.linkchecker", zLOG.BLATHER,
-                     "Site Crawl Status",
-                     "%s of %s (%s)" % (i, os_, ob.getPath()))
+            log.logger.debug("Site Crawl Status %s of %s (%s)" % (i, os_, ob.getPath()))
             ob = ob.getObject()
             if ob is None:
                 # Maybe the catalog isn't up to date

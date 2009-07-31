@@ -17,7 +17,7 @@ from Products.CMFCore.utils import getToolByName
 from Products.Archetypes.public import RichWidget
 
 # Zope imports
-import zLOG
+import gocept.linkchecker.log as log
 from StructuredText import Basic
 from StructuredText.DocumentClass import StructuredTextLink, DocumentClass
 
@@ -128,9 +128,7 @@ def retrieveHTML(text):
         parser.close()
     except SGMLParseError, e:
         # SGMLLib seems to die on bad HTML sometimes. (At least with python2.1)
-        zLOG.LOG('gocept.linkchecker', zLOG.INFO,
-                 'retrieveHTML failed due to SGMLParseError',
-                 str(e))
+        log.logger.error('retrieveHTML failed due to SGMLParseError: %s' % str(e))
     return tuple(parser.anchorlist) + tuple(parser.imglist)
 
 
