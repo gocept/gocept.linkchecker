@@ -10,7 +10,6 @@ from warnings import warn
 import zope.interface
 
 # Global Zope imports
-import zLOG
 from AccessControl import getSecurityManager, ClassSecurityInfo
 from DateTime import DateTime
 from OFS.Folder import Folder
