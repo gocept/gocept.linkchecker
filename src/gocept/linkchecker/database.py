@@ -15,7 +15,7 @@ from Products.BTreeFolder2.BTreeFolder2 import BTreeFolder2
 from AccessControl import getSecurityManager, ClassSecurityInfo
 from Globals import InitializeClass
 from zExceptions import Unauthorized
-import zLOG
+import gocept.linkchecker.log as log
 
 # CMF/Plone imports
 from Products.CMFCore import permissions
@@ -256,8 +256,7 @@ class LinkDatabase(BTreeFolder2):
         if conn.ok:
             client = self._get_connection_object()
         else:
-            zLOG.LOG('gocept.linkchecker', zLOG.ERROR,
-                     'Connection to LMS not possible: %s' % (conn.error, ))
+            log.logger.error('Connection to LMS not possible: %s' % (conn.error, ))
             if self.offline:
                 client = offline_webservice
             else:
@@ -277,7 +276,7 @@ class LinkDatabase(BTreeFolder2):
         if lms is None:
             return
         self.manage_delObjects([url.id for url in urls])
-        lms.unregisterManyLinks([url.url for url in urls])
+        lms.unregisterManyLinks([url.getObject().getURL() for url in urls])
 
     security.declareProtected(permissions.USE_LINK_MANAGEMENT, 'getLinksForURL')
     def getLinksForURL(self, url):
@@ -492,7 +491,6 @@ class LMSClient:
     def unregisterManyLinks(self, urls):
         if not urls:
             return []
-
         try:
             result = self._server.unregisterURLs(self.client_id, self.password, urls)
         except Fault, f:
