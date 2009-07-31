@@ -1,21 +1,14 @@
-# Copyright (c) 2003-2005 gocept gmbh & co. kg
+# Copyright (c) 2003-2009 gocept gmbh & co. kg
 # See also LICENSE.txt
-# $Id$
-"""CMF link checker tool - link information object
-"""
+"""gocept.linkchecker - link information object"""
 
-# Zope imports
 from DateTime import DateTime
 from OFS.SimpleItem import SimpleItem
-from Products.PageTemplates.PageTemplateFile import PageTemplateFile
-import zope.interface 
-
-# CMF/Plone imports
 from Products.CMFCore.utils import getToolByName
-
-# Sibling imports
+from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 import gocept.linkchecker.interfaces
 import gocept.linkchecker.utils
+import zope.interface 
 
 
 class Link(SimpleItem):
@@ -45,7 +38,10 @@ class Link(SimpleItem):
     def getURL(self):
         """Return the URL object this link refers to."""
         lc = getToolByName(self, "portal_linkchecker")
-        return lc.database.queryURLs(url=self.url)[0].getObject()
+        res = lc.database.queryURLs(url=self.url)
+        if not res:
+            raise ValueError, "Could not find URL %s in lc database." % self.url
+        return res[0].getObject()
 
     def getObject(self):
         """Return a reference to the object."""
