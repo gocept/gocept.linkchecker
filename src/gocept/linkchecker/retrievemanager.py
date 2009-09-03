@@ -8,6 +8,7 @@ import transaction
 import zope.interface
 import gocept.linkchecker.log as log
 import zope.lifecycleevent.interfaces
+import zope.app.container
 import zope.component
 from AccessControl import ClassSecurityInfo, getSecurityManager, Unauthorized
 from Globals import InitializeClass, PersistentMapping
@@ -89,8 +90,6 @@ class RetrieveManager(SimpleItem):
             if not i % 100:
                 # Memory optimization
                 transaction.savepoint()
-        # Remove unused urls
-        database.cleanup()
 
     def supportsRetrieving(self, object):
         """Tells if the object is supported for retrieving links."""
@@ -99,6 +98,19 @@ class RetrieveManager(SimpleItem):
 
 
 InitializeClass(RetrieveManager)
+
+
+@zope.component.adapter(
+    zope.app.container.interfaces.IObjectRemovedEvent)
+def remove_links(event):
+    object = event.object
+    try:
+        link_checker = getToolByName(object, 'portal_linkchecker').aq_inner
+    except AttributeError:
+        return
+    if not link_checker.active:
+        return
+    link_checker.database.unregisterObject(object)
 
 
 @zope.component.adapter(

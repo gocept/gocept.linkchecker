@@ -20,6 +20,7 @@ def setup_linkchecker_policy():
     ztc.installPackage('gocept.linkchecker')
     ztc.installProduct('ZCatalog')
 
+
 setup_linkchecker_policy()
 ptc.setupPloneSite(products=['gocept.linkchecker'])
 

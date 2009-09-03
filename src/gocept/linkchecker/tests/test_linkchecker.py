@@ -70,6 +70,20 @@ class LinkCheckerTest(LinkCheckerTestCase):
             self.failUnless(ILink.providedBy(l[0]))
             self.failUnless(l[0].url in links)
 
+    def test_deletion(self):
+        self.loginAsPortalOwner()
+        lc = getToolByName(self.portal, 'portal_linkchecker')
+        lc['database'].offline = True
+        lc.retrieving.retrieveSite()
+        # XXX 21 is an arbitrary amount as the stock Plone site already
+        # contains an unknown number.
+        self.assertEqual(21, lc.database.getLinkCount())
+
+        # Now we delete an object and re-crawl the site. This should cause the
+        # number of links to drop.
+        self.portal.manage_delObjects(['front-page'])
+        self.assertEqual(0, lc.database.getLinkCount())
+
     def test_crawl_offline(self):
         self.loginAsPortalOwner()
         lc = getToolByName(self.portal, 'portal_linkchecker')

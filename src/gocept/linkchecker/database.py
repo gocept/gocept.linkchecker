@@ -276,7 +276,7 @@ class LinkDatabase(BTreeFolder2):
         if lms is None:
             return
         self.manage_delObjects([url.id for url in urls])
-        lms.unregisterManyLinks([url.getObject().getURL() for url in urls])
+        lms.unregisterManyLinks([url.url for url in urls])
 
     security.declareProtected(permissions.USE_LINK_MANAGEMENT, 'getLinksForURL')
     def getLinksForURL(self, url):
@@ -348,14 +348,6 @@ class LinkDatabase(BTreeFolder2):
     def queryURLs(self, **args):
         """Returns the result of querying the ZCatalog that indexes urls."""
         return self.url_catalog(**args)
-
-    security.declareProtected(
-        permissions.ManagePortal, 'cleanup')
-    def cleanup(self):
-        """Removes all object registrations from the known links."""
-        urls = self.queryURLs(links=[])
-        urls = filter(None, urls)
-        self._deleteURLs(urls)
 
     security.declareProtected(
         permissions.ManagePortal, 'sync')
@@ -437,6 +429,7 @@ class LinkDatabase(BTreeFolder2):
         except Exception, e:
             ok = False
             error = '%s: %s' % (str(e.__class__), str(e))
+            protocol_version='unknown',
         else:
             ok, protocol_version, error = server.checkConnection()
         r = R(ok=ok, error=error,
