@@ -19,6 +19,7 @@ class LinkCheckerTest(LinkCheckerTestCase):
         self.loginAsPortalOwner()
         portal = self.portal
         pl = getToolByName(portal, 'portal_linkchecker')
+	pl.database.defaultURLPrefix = portal.absolute_url()
 
         portal.invokeFactory('Document', 'doc1')
         
@@ -82,6 +83,7 @@ class LinkCheckerTest(LinkCheckerTestCase):
         self.loginAsPortalOwner()
         portal = self.portal
         pl = getToolByName(portal, 'portal_linkchecker')
+	pl.database.defaultURLPrefix = portal.absolute_url()
 
         portal.invokeFactory('Folder', 'folder')
         portal.folder.invokeFactory('Document', 'doc')

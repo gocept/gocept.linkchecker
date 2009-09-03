@@ -14,6 +14,7 @@
     />
 
   <subscriber handler=".retrievemanager.update_links" />
+  <subscriber handler=".retrievemanager.remove_links" />
 
   <five:deprecatedManageAddDelete class=".url.URL"/>
   <five:deprecatedManageAddDelete class=".link.Link"/>
