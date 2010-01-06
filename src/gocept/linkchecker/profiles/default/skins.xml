@@ -2,7 +2,7 @@
 <object name="portal_skins">
     <object name="linkchecker" meta_type="Filesystem Directory View"
         directory="gocept.linkchecker:skins/linkchecker"/>
-    <skin-path name="Plone Default">
+    <skin-path name="*">
         <layer name="linkchecker" insert-after="custom"/>
     </skin-path>
 </object>
