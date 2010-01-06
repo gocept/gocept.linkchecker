@@ -9,3 +9,7 @@ gocept.linkchecker 3.0 (unreleased)
       content area.
 
     - Some code refactorings and source cleanup.
+
+  Bugfixes
+
+    - Allow other skins than Plone Default

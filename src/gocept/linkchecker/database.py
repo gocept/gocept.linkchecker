@@ -166,11 +166,7 @@ class LinkDatabase(BTreeFolder2):
             permissions.ModifyPortalContent, object):
             raise Unauthorized, \
                 "Can't modify link registrations for this object."
-
-        link_objects = []
-        for link in links:
-            link_objects.append(self._register_link(link, object))
-
+        link_objects = [self._register_link(link, object) for link in links]
         if online:
             urls = [link.getURL()
                     for link in link_objects
