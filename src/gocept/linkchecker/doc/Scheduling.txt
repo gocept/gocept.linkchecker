@@ -4,7 +4,7 @@ Meta::
 
     Author: Christian Theune <ct@gocept.com>
     Valid for: CMF Link checker
-    CVS: $Id$
+    CVS: 
     Status: work in progress
 
 Describes a scheduling mechanism to avoid long locks.

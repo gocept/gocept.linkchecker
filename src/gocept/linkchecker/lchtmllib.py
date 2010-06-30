@@ -7,7 +7,7 @@
 ##############################################################################
 """Customized HTML parser to find images in an imglist (similar to anchorlist)
 
-$Id$"""
+
 from htmllib import HTMLParser
 
 class LCHTMLParser(HTMLParser):

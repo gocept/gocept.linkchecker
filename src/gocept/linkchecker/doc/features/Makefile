@@ -1,6 +1,6 @@
 # Copyright (c) 2005-2006 gocept gmbh & co. kg
 # See also LICENSE.txt
-# $Id$
+# 
 
 TARGETS=FEATURES.html
 HLEVEL?=1

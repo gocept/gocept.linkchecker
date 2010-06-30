@@ -1,6 +1,6 @@
 # Copyright (c) 2003-2005 gocept gmbh & co. kg
 # See also LICENSE.txt
-# $Id$
+# 
 """Retrieve manager."""
 
 # Zope imports
@@ -49,7 +49,7 @@ class RetrieveManager(SimpleItem):
         # This is dangerous, but I think I know what I'm doing.
         sm = getSecurityManager()
         if not sm.checkPermission(ModifyPortalContent, object):
-            raise Unauthorized, "You can't retrieve links for this object."
+            return
         if (not
             Products.Archetypes.interfaces.IReferenceable.providedBy(object)):
             return
@@ -80,13 +80,15 @@ class RetrieveManager(SimpleItem):
         os_ = len(objects)
         i = 0
         for ob in objects:
+            try:
+                obj = ob.getObject()
+            except Exception, e:
+                # Maybe the catalog isn't up to date
+                log.logger.debug("Site crawl raised an error for %s: %s" % (ob.getPath(), str(e)))
+                continue
             i += 1
             log.logger.debug("Site Crawl Status %s of %s (%s)" % (i, os_, ob.getPath()))
-            ob = ob.getObject()
-            if ob is None:
-                # Maybe the catalog isn't up to date
-                continue
-            self.retrieveObject(ob, online=False)
+            self.retrieveObject(obj, online=False)
             if not i % 100:
                 # Memory optimization
                 transaction.savepoint()

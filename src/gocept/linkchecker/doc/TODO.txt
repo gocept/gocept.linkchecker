@@ -11,7 +11,7 @@ See also LICENSE.txt
 :Valid for:  gocept.linkchecker 3.0
 :Author:     Christian Theune <ct@gocept.com>,
              Christian Zagrodnick <cz@gocept.com>
-:CVS:        $Id$
+:CVS:        
 
 
 Distant future

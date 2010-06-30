@@ -7,7 +7,7 @@
 ##############################################################################
 """CMF link checker tool interface definitions
 
-$Id$"""
+
 
 from Products.CMFCore.permissions import *
 

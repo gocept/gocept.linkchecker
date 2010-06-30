@@ -1,0 +1,12 @@
+.installed.cfg
+~
+ID
+tags
+TAGS
+parts
+.swp
+.pyc
+bin
+develop-eggs
+egg-info
+eggs

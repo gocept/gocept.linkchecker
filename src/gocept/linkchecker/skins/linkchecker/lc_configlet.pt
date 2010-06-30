@@ -21,18 +21,6 @@
        tal:condition="python:checkPermission('Manage users', here)">
 
     <h5 class="hiddenStructure">Views</h5>
-        
-    <ul class="contentViews">
-      <li class="selected">
-        <a href=""
-           tal:attributes="href template_id"
-           i18n:translate="label_configuration">Configuration</a>
-      </li>
-      <li>
-        <a href="lc_configlet_retrievers_form"
-           i18n:translate="label_retrievers">Retrievers</a>
-      </li>
-    </ul>
 
     <div class="contentActions">
       &nbsp;
@@ -208,7 +196,9 @@
 
                 <div class="formHelp" i18n:translate="description_url_prefix">
                     This is used as a prefix for absolute links without 
-                    hostname (e.g. /foo/bar becomes &lt;prefix&gt;/foo/bar).
+                    hostname (e.g. /foo/bar becomes http://my.host:8080/plone/foo/bar).
+                    If you want to check these links make sure the resulting URLs are reachable
+                    by the lms.
                 </div>
 
                 
