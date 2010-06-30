@@ -5,7 +5,7 @@
 # See also LICENSE.txt
 #
 ##############################################################################
-"""CMF link checker tool interface definitions
+"""CMF link checker tool interface definitions"""
 
 
 

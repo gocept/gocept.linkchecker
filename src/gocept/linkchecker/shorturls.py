@@ -6,7 +6,7 @@
 #
 ##############################################################################
 """A short script that shortens URLs in a readable fashion to a target length.
-
+"""
 
 
 import urlparse
