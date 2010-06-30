@@ -6,6 +6,7 @@
 #
 ##############################################################################
 """CMF link checker - exception declarations
+"""
 
 
 class UnknownLink(Exception):
