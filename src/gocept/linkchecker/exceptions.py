@@ -6,7 +6,7 @@
 #
 ##############################################################################
 """CMF link checker - exception declarations
-$Id$"""
+
 
 class UnknownLink(Exception):
     pass

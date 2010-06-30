@@ -1,6 +1,6 @@
 # Copyright (c) 2005 gocept. All rights reserved.
 # See also LICENSE.txt
-# $Id$
+# 
 """CMF link checker tool initalisation code"""
 
 from gocept.linkchecker import permissions

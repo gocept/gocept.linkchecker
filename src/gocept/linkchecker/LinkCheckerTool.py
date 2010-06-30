@@ -1,6 +1,5 @@
 # Copyright (c) 2003-2005 gocept gmbh & co. kg
 # See also LICENSE.txt
-# $Id$
 """CMF link checker tool"""
 
 # Python imports
@@ -65,7 +64,7 @@ class LinkCheckerTool(UniqueObject, Folder):
         LinkCheckerTool.inheritedAttribute('manage_afterAdd')(self, item,
                                                               container)
         object_ids = self.objectIds()
-        
+
         if 'retrieving' not in object_ids:
             self.manage_addProduct["gocept.linkchecker"].\
                     manage_addRetrieveManager('retrieving')
@@ -103,7 +102,7 @@ class LinkCheckerTool(UniqueObject, Folder):
         portal = getToolByName(self, 'portal_url').getPortalObject()
         return security.checkPermission(permissions.USE_LINK_MANAGEMENT,
                                         portal)
-        
+
     ######
     # misc
 

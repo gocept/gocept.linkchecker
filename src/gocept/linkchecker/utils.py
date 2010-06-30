@@ -1,7 +1,7 @@
 # vim:fileencoding=utf-8
 # Copyright (c) 2008 gocept gmbh & co. kg
 # See also LICENSE.txt
-# $Id$
+# 
 """General utility functions."""
 
 # Python imports

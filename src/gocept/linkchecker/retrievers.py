@@ -1,6 +1,6 @@
 # Copyright (c) 2005 gocept gmbh & co. kg
 # See also LICENSE.txt
-# $Id$
+# 
 """CMF link checker tool - link retriever functions"""
 
 import Products.ATContentTypes.content.event

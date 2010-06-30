@@ -1,6 +1,6 @@
 # Copyright (c) 2004 gocept gmbh & co. kg
 # See also LICENSE.txt
-# $Id$
+# 
 
 import Acquisition
 from Products.CMFCore.utils import getToolByName

@@ -12,6 +12,13 @@
     description="Profile for gocept.linkchecker."
     provides="Products.GenericSetup.interfaces.EXTENSION"
     />
+  <genericsetup:registerProfile
+    name="uninstall"
+    title="Link checker"
+    directory="profiles/uninstall"
+    description="Uninstall profile for gocept.linkchecker."
+    provides="Products.GenericSetup.interfaces.EXTENSION"
+    />
 
   <subscriber handler=".retrievemanager.update_links" />
   <subscriber handler=".retrievemanager.remove_links" />

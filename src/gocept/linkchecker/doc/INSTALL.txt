@@ -10,7 +10,7 @@ See also LICENSE.txt
 
 :Valid for:  gocept.linkchecker 3.0
 :Author:     Christian Theune <ct@gocept.com>
-:CVS:        $Id$
+:CVS:        
 
 
 Architectural notes

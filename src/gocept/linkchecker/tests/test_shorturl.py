@@ -1,10 +1,10 @@
 # Copyright (c) 2003-2005 gocept gmbh & co. kg
 # See also LICENSE.txt
-# $Id$
+# 
 
 """ShortURL tests
 
-$Id$"""
+
 
 import unittest
 from Testing import ZopeTestCase
