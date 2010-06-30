@@ -6,7 +6,7 @@
 #
 ##############################################################################
 """Customized HTML parser to find images in an imglist (similar to anchorlist)
-
+"""
 
 from htmllib import HTMLParser
 
