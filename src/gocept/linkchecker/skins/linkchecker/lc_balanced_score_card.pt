@@ -46,12 +46,15 @@
               tal:attributes="
                 class state;
                 href string:${here/portal_url}/lc_all_links_by_status?link_state=${state}">
-              <strong i18n:translate=""
-                tal:content="state_name">
+                <strong i18n:translate=""
+                    tal:attributes="class state;"
+                    tal:content="state_name">
                 Red:
-              </strong>
+            </strong>
+            <span tal:attributes="class state;">
               <span tal:replace="python:status.links[state]"/>
-              (<span tal:replace="python: '%2.2f' % status.linksPct[state]"/>%) 
+                  (<span tal:replace="python: '%2.2f' % status.linksPct[state]"/>%) 
+            </span>
               <img tal:condition="python:status.links[state]"
                 tal:attributes="src string:$portal_url/linkTransparent.gif"/>
             </a><br/>
