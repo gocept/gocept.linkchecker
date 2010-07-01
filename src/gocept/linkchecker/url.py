@@ -48,7 +48,7 @@ class URL(SimpleItem):
         return lc.database.getLinksForURL(self.url)
 
     def updateStatus(self, state, reason):
-        assert state in ['red', 'green', 'orange', 'grey'], \
+        assert state in ['red', 'green', 'orange', 'grey', 'blue'], \
             "Invalid state %s" % state
         self.reason = reason
         if state != self.state:

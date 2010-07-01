@@ -199,7 +199,7 @@ class IURL(Interface):
     lastupdate = Attribute("DateTime when the last status change ocurred.")
     laststate = Attribute("The state before the current state was assumed.")
     state = Attribute("The current state of the link. Can be one of ['red', " \
-                      "'green', 'orange', 'grey'].")
+                      "'green', 'orange', 'blue', 'grey'].")
     reason = Attribute("A verbose reason describing the error")
     links = Attribute(
         "A property that returns all currently associated links"
