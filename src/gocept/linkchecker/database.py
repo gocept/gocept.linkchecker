@@ -32,7 +32,7 @@ WEBSERVICE = "http://lms.gocept.com/v2"
 
 WEBSERVICE_STATEMAP = {
     "unknown" : "grey",
-    "unsupported protocol" : "blue",
+    "unsupported protocol": "blue",
     "ok" : "green",
     "temporary unavailable": "orange",
     "unavailable": "red"}
