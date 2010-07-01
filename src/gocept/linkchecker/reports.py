@@ -87,7 +87,7 @@ class BaseReports(SimpleItem):
         uids = filter(None, uids)
         links = lc.database.queryLinks(object=uids)
 
-        groups = {'red': [], 'orange': [], 'grey': [], 'green': []}
+        groups = {'red': [], 'blue': [], 'orange': [], 'grey': [], 'green': []}
         for link in links:
                 groups[link.state].append(link)
         return groups
@@ -155,6 +155,7 @@ class ManagementReport:
     __allow_access_to_unprotected_subobjects__ = 1
 
     states = [
+        ('blue', 'Blue'),
         ('red', 'Red'),
         ('orange', 'Orange'),
         ('green', 'Green'),
@@ -172,7 +173,7 @@ class ManagementReport:
         links = lc.database.queryLinks()
 
         link_count_per_document = {}
-        link_count_per_state = {'red': 0, 'grey': 0, 'green': 0, 'orange': 0}
+        link_count_per_state = {'red': 0, 'grey': 0, 'green': 0, 'orange': 0, 'blue'}
 
         for link in links:
             link_count_per_state[link.state] += 1
