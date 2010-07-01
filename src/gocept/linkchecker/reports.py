@@ -173,7 +173,7 @@ class ManagementReport:
         links = lc.database.queryLinks()
 
         link_count_per_document = {}
-        link_count_per_state = {'red': 0, 'grey': 0, 'green': 0, 'orange': 0, 'blue'}
+        link_count_per_state = {'red': 0, 'grey': 0, 'green': 0, 'orange': 0, 'blue': 0}
 
         for link in links:
             link_count_per_state[link.state] += 1
