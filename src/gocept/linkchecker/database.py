@@ -3,28 +3,22 @@
 # 
 """CMF link checker tool - link database"""
 
-
-# Python imports
-import socket
-from xmlrpclib import ServerProxy, Fault
-
-# Zope imports
-import zope.interface
-import Products.Archetypes.interfaces
-from Products.BTreeFolder2.BTreeFolder2 import BTreeFolder2
 from AccessControl import getSecurityManager, ClassSecurityInfo
 from Globals import InitializeClass
-from zExceptions import Unauthorized
-import gocept.linkchecker.log as log
-
-# CMF/Plone imports
+from Products.BTreeFolder2.BTreeFolder2 import BTreeFolder2
 from Products.CMFCore import permissions
-
+from gocept.linkchecker import permissions
+from gocept.linkchecker.interfaces import ILinkDatabase
+from xmlrpclib import ServerProxy, Fault
+from zExceptions import Unauthorized
+import Products.Archetypes.interfaces
+import Products.CMFCore.utils
 import gocept.linkchecker.link
+import gocept.linkchecker.log as log
 import gocept.linkchecker.url
 import gocept.linkchecker.utils
-from gocept.linkchecker.interfaces import ILinkDatabase
-from gocept.linkchecker import permissions
+import socket
+import zope.interface
 
 
 PROTOCOL_VERSION = 2
@@ -475,7 +469,7 @@ class LMSClient:
             try:
                 result = self._server.registerURLs(self.client_id, self.password, urls)
             except Fault, f:
-                raise self._translate_fault(f)
+                self._translate_fault(f)
         return result
 
     def unregisterManyLinks(self, urls):
@@ -484,27 +478,27 @@ class LMSClient:
         try:
             result = self._server.unregisterURLs(self.client_id, self.password, urls)
         except Fault, f:
-            raise self._translate_fault(f)
+            self._translate_fault(f)
         return result
 
     def getStatus(self, url):
         try:
             status = self._server.getStatus(url)
         except Fault, f:
-            raise self._translate_fault(f)
+            self._translate_fault(f)
         return status
 
     def getClientNotifications(self):
         try:
             return self._server.getClientNotifications(self.client_id, self.password)
         except Fault, f:
-            raise self._translate_fault(f)
+            self._translate_fault(f)
 
     def getInfoFrameURL(self):
         try:
             return self._server.getInfoFrameURL(self.client_id, self.password)
         except Fault, f:
-            raise self._translate_fault(f)
+            self._translate_fault(f)
 
     def setClientNotifications(self, status):
         if isinstance(status, (str, unicode)):
@@ -544,11 +538,13 @@ class LMSClient:
 
         exception_class = self._exception_mapping.get(name)
         if exception_class is None:
-            e = f
+            sm = zope.component.getSiteManager()
+            Products.CMFCore.utils.getToolByName(
+                sm, "plone_utils").addPortalMessage(
+                    "LMS Error: %s/%s" % (name, value), type='error')
         else:
             e = exception_class(value)
-
-        return e
+            raise e
 
 
 InitializeClass(LinkDatabase)
