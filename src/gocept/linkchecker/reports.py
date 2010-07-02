@@ -155,10 +155,10 @@ class ManagementReport:
     __allow_access_to_unprotected_subobjects__ = 1
 
     states = [
-        ('blue', 'Blue'),
-        ('red', 'Red'),
-        ('orange', 'Orange'),
         ('green', 'Green'),
+        ('orange', 'Orange'),
+        ('red', 'Red'),
+        ('blue', 'Blue'),
         ('grey', 'Grey'),
     ]
 
