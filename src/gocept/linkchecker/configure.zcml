@@ -12,6 +12,7 @@
     description="Profile for gocept.linkchecker."
     provides="Products.GenericSetup.interfaces.EXTENSION"
     />
+
   <genericsetup:registerProfile
     name="uninstall"
     title="Link checker"
