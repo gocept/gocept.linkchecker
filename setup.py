@@ -7,7 +7,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='gocept.linkchecker',
-    version='3.0a1',
+    version='3.0a2dev',
     author='gocept gmbh & co. kg',
     author_email='mail@gocept.com',
     description='Check links in your Plone site using a link monitoring server.',
