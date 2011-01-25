@@ -51,10 +51,12 @@ class URL(SimpleItem):
         assert state in ['red', 'green', 'orange', 'grey', 'blue'], \
             "Invalid state %s" % state
         self.reason = reason
+        now = DateTime()
+        self.lastcheck = now
         if state != self.state:
             self.laststate = self.state
             self.state = state 
-            self.lastupdate = DateTime()
+            self.lastupdate = now
         self.index()
         # Reindex link objects to update their status caches
         for link in self.getLinks():
@@ -76,6 +78,7 @@ class URL(SimpleItem):
         self.index()
 
     def manage_beforeDelete(self, item, container):
+        return
         self.unindex()
 
     def index(self):
