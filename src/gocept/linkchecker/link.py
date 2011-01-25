@@ -18,12 +18,7 @@ class Link(SimpleItem):
 
     zope.interface.implements(gocept.linkchecker.interfaces.ILink)
 
-    # XXX make accessor functions
     __allow_access_to_unprotected_subobjects__ = 1
-
-    object = None
-    link = None
-    url = None
 
     manage_options = ({'label': 'Info', 'action':'manage_info'},) + \
                      SimpleItem.manage_options
@@ -34,13 +29,21 @@ class Link(SimpleItem):
         self.link = link
         self.id = id
 
+    def __setstate__(self, state):
+        for key in ['url', 'state', 'lastcheck', 'reason']:
+            if 'url' in state:
+                del state['url']
+        SimpleItem.__setstate__(self, state)
+
     # gocept.linkchecker.interfaces.ILink
     def getURL(self):
         """Return the URL object this link refers to."""
         lc = getToolByName(self, "portal_linkchecker")
-        res = lc.database.queryURLs(url=self.url)
+        url = self.url()
+        res = lc.database.queryURLs(url=url)
         if not res:
-            raise ValueError, "Could not find URL %s in lc database." % self.url
+            # Ensure the URL exists
+            raise ValueError("Could not find URL %s." % url)
         return res[0].getObject()
 
     def getObject(self):
@@ -60,14 +63,40 @@ class Link(SimpleItem):
         self.unindex()
 
     def index(self):
-        self.url = gocept.linkchecker.utils.resolveRelativeLink(self.link, self.getObject())
-        url = self.getURL()
-        self.state = url.state
-        self.reason = url.reason
-        self.lastcheck = url.lastcheck
+        if self.getObject() is None:
+            self.getParentNode().manage_delObjects([self.id])
+            return 
+        try:
+            url = self.getURL()
+        except ValueError:
+            # Make sure the URL object exists when we index ourselves.
+            url = gocept.linkchecker.url.URL(self.url())
+            db = self.getLinkCheckerDatabase()
+            if url.id not in db.objectIds():
+                db._setObject(url.id, url)
+            url = db[url.id]
         path = '/'.join(self.getPhysicalPath())
         self.link_catalog.catalog_object(self, path)
 
     def unindex(self):
         path = '/'.join(self.getPhysicalPath())
-        self.link_catalog.uncatalog_object(path)
+        try:
+            catalog = self.link_catalog
+        except AttributeError:
+            # This is a special case to handle very large databases: empty or
+            # delete the catalog then delete stuff
+            return
+        catalog.uncatalog_object(path)
+
+    def url(self):
+        return gocept.linkchecker.utils.resolveRelativeLink(
+            self.link, self.getObject())
+
+    def state(self):
+        return self.getURL().state
+
+    def reason(self):
+        return self.getURL().reason
+
+    def lastcheck(self):
+        return self.getURL().lastcheck

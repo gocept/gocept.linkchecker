@@ -76,6 +76,10 @@ class LinkDatabase(BTreeFolder2):
 
     security = ClassSecurityInfo()
 
+    def getLinkCheckerDatabase(self):
+        """Retrieve this object with a meaningful name via acquisition."""
+        return self.aq_inner
+
     def manage_afterAdd(self, item, container):
         LinkDatabase.inheritedAttribute('manage_afterAdd')(self, item,
                                                            container)
@@ -173,13 +177,6 @@ class LinkDatabase(BTreeFolder2):
         if link_id in self.objectIds():
             return
         link = gocept.linkchecker.link.Link(link, link_id, object.UID())
-        # Make sure the URL object exists before we trigger indexing
-        # and such
-        url = gocept.linkchecker.utils.resolveRelativeLink(link.link, object)
-        url_id = gocept.linkchecker.utils.hash_url(url)
-        if url_id not in self.objectIds():
-            url = gocept.linkchecker.url.URL(url)
-            self._setObject(url_id, url)
         # Now we can add the link to the database 
         self._setObject(link_id, link)
         return self[link_id]
@@ -233,6 +230,9 @@ class LinkDatabase(BTreeFolder2):
 
            Returns None.
         """
+        if isinstance(object, (gocept.linkchecker.url.URL,
+                               gocept.linkchecker.link.Link)):
+            return
         links = self.getLinksForObject(object)
         link_ids = [x.getId() for x in links]
         self.manage_delObjects(link_ids)
@@ -370,7 +370,7 @@ class LinkDatabase(BTreeFolder2):
         """
         self.authenticateXMLRPC(client_id, password)
         # XXX optimiziation: make .url unique
-        return [x.url for x in self.getAllLinks()]
+        return [x.url for x in self.queryURLs()]
 
     security.declarePrivate('authenticateXMLRPC')
     def authenticateXMLRPC(self, client_id, password):

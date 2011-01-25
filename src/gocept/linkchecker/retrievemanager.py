@@ -76,7 +76,7 @@ class RetrieveManager(SimpleItem):
     def retrieveSite(self):
         """Retrieves the links from all objects in the site."""
         database = self.getParentNode().database
-        objects = self.portal_catalog(Language='all')
+        objects = self.portal_catalog(Language='all')[:2000]
         os_ = len(objects)
         i = 0
         for ob in objects:
