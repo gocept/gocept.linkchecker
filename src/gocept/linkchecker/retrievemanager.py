@@ -102,8 +102,6 @@ class RetrieveManager(SimpleItem):
 InitializeClass(RetrieveManager)
 
 
-@zope.component.adapter(
-    zope.app.container.interfaces.IObjectRemovedEvent)
 def remove_links(event):
     object = event.object
     try:
@@ -115,8 +113,6 @@ def remove_links(event):
     link_checker.database.unregisterObject(object)
 
 
-@zope.component.adapter(
-    zope.lifecycleevent.interfaces.IObjectModifiedEvent)
 def update_links(event):
     object = event.object
     try:

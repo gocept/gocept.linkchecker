@@ -21,9 +21,13 @@
     provides="Products.GenericSetup.interfaces.EXTENSION"
     />
 
-  <subscriber handler=".retrievemanager.update_links" />
-  <subscriber handler=".retrievemanager.remove_links" />
-
+  <subscriber for="Products.Archetypes.interfaces.IObjectEditedEvent"
+    handler=".retrievemanager.update_links" />
+  <subscriber for="Products.Archetypes.interfaces.IObjectInitializedEvent"
+    handler=".retrievemanager.update_links" />   
+  <subscriber for="zope.app.container.interfaces.IObjectRemovedEvent"
+    handler=".retrievemanager.remove_links" />
+  
   <five:deprecatedManageAddDelete class=".url.URL"/>
   <five:deprecatedManageAddDelete class=".link.Link"/>
   <five:deprecatedManageAddDelete class=".database.LinkDatabase"/>
