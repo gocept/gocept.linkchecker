@@ -1,0 +1,9 @@
+Changelog
+=========
+
+3.0a3dev (unreleased)
+---------------------
+
+- Fix manifest to include .py files from non-Python-package directories.
+
+- Update setup.py to include a somewhat sensible long description.
