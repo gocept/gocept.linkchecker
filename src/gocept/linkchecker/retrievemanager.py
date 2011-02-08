@@ -119,6 +119,12 @@ def remove_links(event):
     zope.lifecycleevent.interfaces.IObjectModifiedEvent)
 def update_links(event):
     object = event.object
+    temporary = getattr(object, 'isTemporary', lambda:False)()
+    if temporary:
+        # Objects that are temporary (read: portal_factory) and do not have a
+        # (stable) URL (yet) do not need to be crawled: relative links will be
+        # off quickly and we can't really use the UID anyway.
+        return
     try:
         link_checker = getToolByName(object, 'portal_linkchecker').aq_inner
     except AttributeError:
