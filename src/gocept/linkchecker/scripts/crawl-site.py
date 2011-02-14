@@ -2,9 +2,11 @@ import sys
 import DateTime # zope
 import transaction
 import datetime
+import ZODB.POSException
 from AccessControl.SecurityManagement import \
     newSecurityManager, setSecurityManager
 from Testing.makerequest import makerequest
+import cPickle
 
 site = app.unrestrictedTraverse(sys.argv[1])
 
@@ -20,42 +22,61 @@ start = datetime.datetime.now()
 indexed = 0
 retrieving = site.portal_linkchecker.retrieving
 
-seen = set()
+try:
+    seen = cPickle.load(open('crawl.status', 'r'))
+    print "Loaded status"
+except:
+    print "Starting fresh"
+    seen = set()
 
-while True:
-    total = len(site.portal_catalog_real)
-    docs_remaining = site.portal_catalog.searchResults(
-        Language='all', modified=dict(query=last, range='min'),
-        sort_on='modified')
-    count_remaining = len(docs_remaining)
-    print "Indexing documents (%s total, %s remaining)" % (total, count_remaining)
-    i = 0
-    for doc in docs_remaining:
-        if i >= 500:
+
+print "Fetching brains from catalog ..."
+docs_remaining = site.portal_catalog.searchResults(Language='all')
+docs_iter = iter(docs_remaining)
+
+final = False
+while not final:
+    print "Scanning for items not retrieved in current run ..."
+
+    skipped = 0
+    seen_this = set()
+    batch_start = datetime.datetime.now()
+
+    for doc in docs_iter:
+        if (datetime.datetime.now() - batch_start) > datetime.timedelta(seconds=30):
+            # Time out a batch after 15 seconds
             break
-        if (doc.getRID(), doc.modified) in seen:
+        if doc.getRID() in seen:
+            skipped += 1
             continue
-        seen.add((doc.getRID(), doc.modified))
+        seen_this.add(doc.getRID())
         try:
-            doc = doc.getObject()
-            last_modified = doc.modified()
-            i += 1
+            d = doc.getObject()
+	    a = datetime.datetime.now()
+            retrieving.retrieveObject(d, online=False)
+	    print "retrieved %s in %s" % (doc.getPath(), datetime.datetime.now() - a)
         except Exception, e:
             print "Crawl raised an error for %s: %s" % (doc.getPath(), str(e))
             continue
-        retrieving.retrieveObject(doc, online=False)
-    indexed += i
+    else:
+        final = True
+    indexed += len(seen_this)
     time_passed = datetime.datetime.now() - start
     time_per_doc = (time_passed.days * (24*3600) + time_passed.seconds) / float(indexed)
-    time_remaining = (count_remaining-i) * time_per_doc
-    print "Indexed %s documents in %s (%ss/doc, %s remaining)" % (indexed, time_passed, time_per_doc, datetime.timedelta(seconds=int(time_remaining)))
-    # Allow overlap because the index granularity is only second-wise, that's what the "seen" filter is for to counter.
-    last = last_modified - 0.001
-    print last, i
-    transaction.commit()
-    if i == 0:
-        break
-
+    time_remaining = (len(docs_remaining) - len(seen) - len(seen_this)) * time_per_doc
+    print "Retrieved %s (%s total, %s indexed, %s skipped) documents in %s (%.04ss/doc, %s remaining)" % (
+        len(seen_this), len(docs_remaining), indexed, skipped, time_passed, time_per_doc, datetime.timedelta(seconds=int(time_remaining)))
+    try:
+        transaction.commit()
+    except ZODB.POSException.ConflictError:
+        print "Conflict. Continuing with next batch."
+        transaction.abort()
+        continue
+    else:
+    	a = datetime.datetime.now()
+        seen.update(seen_this)
+        cPickle.dump(seen, open('crawl.status', 'w'))
+	print "saved in %s" % (datetime.datetime.now() - a)
 
 print "Forcing synchronisation with LMS"
 site.portal_linkchecker.database.sync()

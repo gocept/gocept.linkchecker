@@ -48,9 +48,10 @@
         </th>
       </metal:block>
       <metal:block fill-slot="body_cols">
+        <tal:block  tal:define="link python:here.portal_linkchecker.reports.LinkStateInfo(link)">
         <td> 
           <a class="navItem navLevel1"
-             tal:attributes="href link/document/getURL;
+             tal:attributes="href link/document/absolute_url;
                              title link/document/Description" 
                              > 
             <img class="navIcon" 
@@ -64,6 +65,8 @@
               asdf
             </span>
           </a>
+	 <br/>
+	 <span style="font-size:80%; color:grey;" tal:content="python:'/'.join(link['document'].getPhysicalPath())"/>
         </td>
         <td>
           <a tal:attributes="href string:mailto:${link/owner_mail}"
@@ -71,10 +74,8 @@
             asdf
           </a>
         </td>
+        </tal:block>
       </metal:block>
     </metal:block>
   </metal:block>
 </html>
-
-
-
