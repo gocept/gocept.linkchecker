@@ -93,29 +93,36 @@ class BaseReports(SimpleItem):
         return groups
 
 
+    security.declareProtected(permissions.ManagePortal, "LinkStateInfo")
+    def LinkStateInfo(self, link):
+        # Resolve a link brain object into something more useful for the
+        # LinksInState report
+        pms = getToolByName(self, 'portal_membership')
+        link = link.getObject()
+        item = {}
+        item["url"] = link.url
+        item["reason"] = link.reason
+        item["lastcheck"] = link.lastcheck
+        item["id"] = link.getId
+        item["link"] = link.link
+        item["document"] = link.getObject()
+        item["object"] = link.object
+        item["owner_mail"] = ""
+        item["owner"] = item["document"].Creator()
+        try:
+            member = pms.getMemberById(creator)
+            item["owner_mail"] = member.getProperty("email")
+            item["owner"] = member.getProperty("fullname", item["owner"])
+        except Exception:
+            pass
+        return item
+
     security.declareProtected(permissions.ManagePortal, "LinksInState")
     def LinksInState(self, state):
         """Returns a list of links in the given state."""
-
-        for link, doc, member in self._document_iterator(state):
-            item = {}
-            item["url"] = link.url
-            item["reason"] = link.reason
-            item["lastcheck"] = link.lastcheck
-            item["id"] = link.getId
-            item["link"] = link.link
-            item["document"] = doc
-            item["object"] = link.object
-
-            if member is None:
-                item["owner_mail"] = ""
-                item["owner"] = doc.Creator
-            else:
-                item["owner_mail"] = member.getProperty("email")
-                item["owner"] = member.getProperty("fullname", doc.Creator)
-
-            yield item
-
+        lc = getToolByName(self, 'portal_linkchecker')
+        return lc.database.queryLinks(state=[state], sort_on="url")
+    
     security.declareProtected(permissions.ManagePortal,
                               'ManagementOverview')
     def ManagementOverview(self):
@@ -123,28 +130,6 @@ class BaseReports(SimpleItem):
         """
         return ManagementReport(self)
         
-    def _document_iterator(self, state):
-        member_cache = {}
-    
-        lc = getToolByName(self, 'portal_linkchecker')
-        catalog = getToolByName(self, 'portal_catalog')
-        pms = getToolByName(self, 'portal_membership')
-
-        _marker = object()
-
-        links = lc.database.queryLinks(state=[state], sort_on="url")
-        for link in links:
-            doc_uid = link.object
-            if not doc_uid:
-                continue
-            docs = catalog(UID=doc_uid, Language='all')
-            for doc in docs:
-                creator = doc.Creator
-                member = member_cache.get(creator, _marker)
-                if member is _marker:
-                    member = pms.getMemberById(creator)
-                    member_cache[creator] = member
-                yield link, doc, member
 
 
 InitializeClass(BaseReports)
@@ -169,23 +154,16 @@ class ManagementReport:
     def _generate_data(self):
         lc = getToolByName(self._context, 'portal_linkchecker')
    
-        # get and massage data from the catalog
-        links = lc.database.queryLinks()
+        self.links = {}
+        for state in ['red', 'grey', 'green', 'orange', 'blue']:
+            self.links[state] = len(lc.database.queryLinks(state=[state]))
 
-        link_count_per_document = {}
-        link_count_per_state = {'red': 0, 'grey': 0, 'green': 0, 'orange': 0, 'blue': 0}
+        self.totalLinks = sum(self.links.values())
 
-        for link in links:
-            link_count_per_state[link.state] += 1
-
-        # totals
-        self.totalLinks = len(links)
-
-        # links in state
-        self.links = link_count_per_state
-        if links:
+        if self.totalLinks:
             self.linksPct = {}
-            for state, count in link_count_per_state.items():
+            for state, count in self.links.items():
                 self.linksPct[state] = float(count) / self.totalLinks * 100
         else:
-            self.linksPct = link_count_per_state
+            # All zeros
+            self.linksPct = self.links

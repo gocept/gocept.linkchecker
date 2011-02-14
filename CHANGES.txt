@@ -4,7 +4,12 @@ Changelog
 3.0a6 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Significant performance improvements for displaying the overview statistics
+  and browsing links by status.
+
+- Significant improvements on continuous re-retrieving script for whole site.
+
+- Readability improvements when browsing links by status.
 
 
 3.0a5 (2011-02-08)
