@@ -1,7 +1,7 @@
 Changelog
 =========
 
-3.0a6 (unreleased)
+3.0a6 (2011-02-14)
 ------------------
 
 - Significant performance improvements for displaying the overview statistics
