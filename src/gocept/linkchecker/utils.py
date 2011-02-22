@@ -213,4 +213,6 @@ def hash_link(link, object):
 
 
 def hash_url(url):
+    if isinstance(url, unicode):
+        url = url.encode('utf-8')
     return md5.md5(url).hexdigest()
