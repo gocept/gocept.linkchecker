@@ -1,7 +1,7 @@
 Changelog
 =========
 
-3.0a7 (unreleased)
+3.0a7 (2011-02-22)
 ------------------
 
 - Force hashing a URL to encode to utf-8 first so that the md5 hexdigest can
