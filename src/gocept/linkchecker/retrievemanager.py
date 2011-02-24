@@ -119,7 +119,8 @@ def remove_links(event):
     zope.lifecycleevent.interfaces.IObjectModifiedEvent)
 def update_links(event):
     object = event.object
-    temporary = getattr(object, 'isTemporary', lambda:False)()
+    partal_factory = getToolByName(object, 'portal_factory')
+    temporary = partal_factory.isTemporary(object)
     if temporary:
         # Objects that are temporary (read: portal_factory) and do not have a
         # (stable) URL (yet) do not need to be crawled: relative links will be
