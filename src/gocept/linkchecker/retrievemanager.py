@@ -13,7 +13,7 @@ import zope.component
 from AccessControl import ClassSecurityInfo, getSecurityManager, Unauthorized
 from Globals import InitializeClass, PersistentMapping
 from OFS.SimpleItem import SimpleItem
-
+from zope.app.component.hooks import getSite
 import Products.Archetypes.interfaces
 
 # CMF/Plone imports
@@ -119,8 +119,10 @@ def remove_links(event):
     zope.lifecycleevent.interfaces.IObjectModifiedEvent)
 def update_links(event):
     object = event.object
-    partal_factory = getToolByName(object, 'portal_factory')
-    temporary = partal_factory.isTemporary(object)
+    portal = getSite()
+    if not portal:
+        return
+    temporary = portal.portal_factory.isTemporary(object)
     if temporary:
         # Objects that are temporary (read: portal_factory) and do not have a
         # (stable) URL (yet) do not need to be crawled: relative links will be
