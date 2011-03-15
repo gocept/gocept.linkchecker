@@ -45,7 +45,7 @@ class OfflineWebserviceDummy(object):
 
     def registerManyLinks(self, links):
         self.register_many.append(links)
-        return []
+        return [(link, 'unknown', 'somereason') for link in links]
 
     def unregisterManyLinks(self, links):
         self.unregister_many.append(links)

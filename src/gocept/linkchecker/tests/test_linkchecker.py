@@ -15,11 +15,13 @@ import zope.lifecycleevent
 
 class LinkCheckerTest(LinkCheckerTestCase):
 
+
     def test_link_registration(self):
         self.loginAsPortalOwner()
         doc = makeContent(self.portal, portal_type="Document", id="asdf")
 
         lc = getToolByName(self.portal, 'portal_linkchecker')
+        lc['database'].offline = True
         links = ["http://www.gocept.com", 
                  "http://www.asfdhasdkjfhasdkjhfkjsda.org", 
                  "http://www.zope.org", "http://www.microsoft.com"]
@@ -68,7 +70,7 @@ class LinkCheckerTest(LinkCheckerTestCase):
             l = lc.database.getLinksForObject(doc)
             self.assertEqual(len(l), 1)
             self.failUnless(ILink.providedBy(l[0]))
-            self.failUnless(l[0].url in links)
+            self.failUnless(l[0].url() in links)
 
     def test_deletion(self):
         self.loginAsPortalOwner()
