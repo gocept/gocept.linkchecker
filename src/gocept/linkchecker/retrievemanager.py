@@ -120,7 +120,7 @@ def remove_links(event):
 def update_links(event):
     object = event.object
     portal = getSite()
-    if not portal:
+    if not portal or not hasattr(portal, 'portal_factory'):
         return
     temporary = portal.portal_factory.isTemporary(object)
     if temporary:
