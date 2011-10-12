@@ -35,14 +35,6 @@
         Link Checker setup for this portal
     </p>
 
-    <fieldset tal:define="info_frame_url lc/getInfoFrameURL"
-              tal:condition="info_frame_url">
-      <legend>Link Monitoring Server Alerts</legend>
-
-      <iframe src="" width="100%" height="100" frameborder="0"
-              tal:attributes="src info_frame_url">
-      </iframe>
-    </fieldset>
 
     <form action="lc_configlet_set"
           name="reconfig"
@@ -95,21 +87,6 @@
 
             <legend i18n:translate="label_web_service_details">Link Monitoring Server</legend>
 
-            <div class="formControls">
-                <label>Register with gocept LMS</label>
-
-                <div class="formHelp" id="register_help"
-                     i18n:translate="description_pref_register">
-                Register with gocept's link monitoring server if you don't have
-                an LMS of your own.
-                </div>
-
-                <a href="" 
-                   tal:attributes="href lc/registrationURL">
-                   Register with the gocept LMS</a>
-
-            </div>
-
             <div class="portalMessage"
                  tal:condition="python:webservice or client_id">
               You've been registered successfully. An e-mail with your account
@@ -128,9 +105,7 @@
                 <input name="webservice"
                     type="text"
                     size="30"
-                    tabindex=""
-                    tal:attributes="value python:webservice or lc.database.webservice;
-                                    tabindex tabindex/next;" />
+                    tal:attributes="value python:webservice or lc.database.webservice;" />
             </div>
             <a name="form_client_id"></a>
             <div class="field">
@@ -144,9 +119,7 @@
                 <input name="clientid"
                     type="text"
                     size="30"
-                    tabindex=""
-                    tal:attributes="value python:client_id or lc.database.clientid;
-                                    tabindex tabindex/next;" />
+                    tal:attributes="value python:client_id or lc.database.clientid;" />
             </div>
 
             <div class="field">
@@ -164,19 +137,15 @@
                 <input 
                     name="password"
                     type="password"
-                    size="30"
-                    tabindex=""
-                    tal:attributes="tabindex tabindex/next;" />
+                    size="30" />
             </div>
 
             <div class="formControls">
                 <input class="context"
-                       tabindex=""
                        type="submit"
                        name="submit"
                        value="Save"
                        i18n:attributes="value"
-                       tal:attributes="tabindex tabindex/next"
                        />
             </div>
 
@@ -209,9 +178,7 @@
                 <input name="defaultURLPrefix"
                        value=""
                        size="30"
-                       tabindex=""
-                       tal:attributes="value url;
-                                       tabindex tabindex/next;" />
+                       tal:attributes="value url;" />
                                
 
             </div> 
@@ -230,13 +197,11 @@
               
               <label>
                 <input type="radio" name="client_notifications:int" value="1"
-                  tal:attributes="tabindex tabindex/next;
-                                  checked python:notify">Send
+                  tal:attributes="checked python:notify">Send
               </label><br/>
               <label>
                 <input type="radio" name="client_notifications:int" value="0"
-                  tal:attributes="tabindex tabindex/next;
-                                  checked python: not notify;" />
+                  tal:attributes="checked python: not notify;" />
                                   Do not send
               </label>
                 
@@ -245,12 +210,10 @@
     
             <div class="formControls">
                 <input class="context"
-                       tabindex=""
                        type="submit"
                        name="submit"
                        value="Save"
                        i18n:attributes="value"
-                       tal:attributes="tabindex tabindex/next"
                        />
             </div>
     
