@@ -61,6 +61,7 @@ class LinkCheckerTool(UniqueObject, Folder):
                                         __name__='manage_overview')
 
     def manage_afterAdd(self, item, container):
+        return
         LinkCheckerTool.inheritedAttribute('manage_afterAdd')(self, item,
                                                               container)
         object_ids = self.objectIds()
