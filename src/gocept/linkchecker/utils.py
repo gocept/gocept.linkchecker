@@ -18,8 +18,9 @@ from Products.Archetypes.public import RichWidget
 
 # Zope imports
 import gocept.linkchecker.log as log
-from StructuredText import Basic
-from StructuredText.DocumentClass import StructuredTextLink, DocumentClass
+#from StructuredText import Basic
+from zope.structuredtext.stng import StructuredTextLink
+from zope.structuredtext.document import Document
 
 # Sibling imports
 from gocept.linkchecker import lchtmllib
@@ -100,8 +101,8 @@ def resolveRelativeLink(url, context):
 
 def retrieveSTX(text):
     """Retrieve links from STX data."""
-    data = Basic(text)
-    data = DocumentClass()(data)
+    #data = Basic(text)
+    data = Document()(data)
     
     stack = data.getChildren()
     links = []
