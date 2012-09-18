@@ -29,7 +29,7 @@
         <tr>
           <th>
             <span i18n:translate="link_header_link">Link</span><br />
-            <span i18n:translate="link_header_description">Description</span>
+            <span i18n:translate="link_header_description">Reason</span>
           </th>
           <metal:block metal:define-slot="header_cols">
             <th i18n:translate="link_header_state">
@@ -44,7 +44,6 @@
           <tr
               tal:attributes="class python:test(repeat['link'].odd(), 'odd', 'even')">
             <td class="linkreason">
-              <p>
                 <div tal:attributes="id string:link-${link/id}">
                   <a tal:attributes="title link/url;
                     href link/url"
@@ -63,12 +62,13 @@
                   </form>
                 </div>
                 <br />
-                <tal:block 
+                <span
+                    style="font-size:80%; color:grey;"
                       tal:attributes="title link/reason"
                       tal:content="python:path('link/reason').replace(path('link/url'), '~')" 
                       i18n:translate="">
                   initialized
-                </tal:block>
+                </span>
               </td>
               <metal:block metal:define-slot="body_cols">
                 <td tal:attributes="class link/state"
@@ -141,11 +141,10 @@
                   <br />
                   
                   <tal:block 
-            tal:content="link/reason" 
-            i18n:translate="">
+                        tal:content="link/reason" 
+                        i18n:translate="">
                     Unknown
                   </tal:block>
-                </p>
               </td>
               
               <td tal:define="doc_uid link/object;

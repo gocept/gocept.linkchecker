@@ -13,7 +13,8 @@ import zope.component
 from AccessControl import ClassSecurityInfo, getSecurityManager, Unauthorized
 from Globals import InitializeClass, PersistentMapping
 from OFS.SimpleItem import SimpleItem
-
+from zope.app.component.hooks import getSite
+import zope.app.container.interfaces
 import Products.Archetypes.interfaces
 
 # CMF/Plone imports
@@ -76,7 +77,7 @@ class RetrieveManager(SimpleItem):
     def retrieveSite(self):
         """Retrieves the links from all objects in the site."""
         database = self.getParentNode().database
-        objects = self.portal_catalog(Language='all')[:2000]
+        objects = self.portal_catalog(Language='all')
         os_ = len(objects)
         i = 0
         for ob in objects:
@@ -115,6 +116,15 @@ def remove_links(event):
 
 def update_links(event):
     object = event.object
+    portal = getSite()
+    if not portal or not hasattr(portal, 'portal_factory'):
+        return
+    temporary = portal.portal_factory.isTemporary(object)
+    if temporary:
+        # Objects that are temporary (read: portal_factory) and do not have a
+        # (stable) URL (yet) do not need to be crawled: relative links will be
+        # off quickly and we can't really use the UID anyway.
+        return
     try:
         link_checker = getToolByName(object, 'portal_linkchecker').aq_inner
     except AttributeError:
