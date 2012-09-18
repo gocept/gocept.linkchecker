@@ -2,7 +2,7 @@
 # See also LICENSE.txt
 # 
 
-"""ShortURL tests
+"""ShortURL tests"""
 
 
 
