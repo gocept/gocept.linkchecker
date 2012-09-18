@@ -1,4 +1,8 @@
 .installed.cfg
+lib
+.Python
+downloads
+include
 dist
 ~
 ID
