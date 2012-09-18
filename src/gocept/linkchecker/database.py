@@ -45,7 +45,7 @@ class OfflineWebserviceDummy(object):
 
     def registerManyLinks(self, links):
         self.register_many.append(links)
-        return []
+        return [(link, 'unknown', 'somereason') for link in links]
 
     def unregisterManyLinks(self, links):
         self.unregister_many.append(links)
@@ -177,7 +177,7 @@ class LinkDatabase(BTreeFolder2):
         if link_id in self.objectIds():
             return
         link = gocept.linkchecker.link.Link(link, link_id, object.UID())
-        # Now we can add the link to the database 
+        # Now we can add the link to the database
         self._setObject(link_id, link)
         return self[link_id]
 
