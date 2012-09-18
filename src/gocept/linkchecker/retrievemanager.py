@@ -14,6 +14,7 @@ from AccessControl import ClassSecurityInfo, getSecurityManager, Unauthorized
 from Globals import InitializeClass, PersistentMapping
 from OFS.SimpleItem import SimpleItem
 from zope.app.component.hooks import getSite
+import zope.app.container.interfaces
 import Products.Archetypes.interfaces
 
 # CMF/Plone imports
