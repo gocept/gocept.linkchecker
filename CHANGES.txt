@@ -4,7 +4,9 @@ Changelog
 3.0a8 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Make compatible with Plone 4 (Thanks to Martin Reisetadbakk)
+
+- Clean up and fix adapter registrations for link retrieval. (Thanks to Maik Derstappen)
 
 
 3.0a7 (2011-02-22)
