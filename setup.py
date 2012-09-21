@@ -10,7 +10,7 @@ def read(*names):
 
 setup(
     name='gocept.linkchecker',
-    version='3.0a8dev',
+    version='3.0a8',
     author='gocept gmbh & co. kg',
     author_email='mail@gocept.com',
     description='Check links in your Plone site using a link monitoring server.',

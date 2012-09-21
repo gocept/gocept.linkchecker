@@ -1,7 +1,7 @@
 Changelog
 =========
 
-3.0a8 (unreleased)
+3.0a8 (2012-09-21)
 ------------------
 
 - Make compatible with Plone 4 (Thanks to Martin Reisetadbakk)
