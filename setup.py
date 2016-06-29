@@ -13,6 +13,7 @@ setup(
     version='3.0a10.dev0',
     author='gocept gmbh & co. kg',
     author_email='mail@gocept.com',
+    url='https://bitbucket.org/gocept/gocept.linkchecker/',
     description='Check links in your Plone site using a link monitoring server.',
     long_description=(
         read('src', 'gocept', 'linkchecker', 'doc', 'README.txt') +
@@ -25,4 +26,11 @@ setup(
     license='ZPL 2.1',
     namespace_packages=['gocept'],
     install_requires=['setuptools', 'lxml'],
+    classifiers="""\
+License :: OSI Approved :: Zope Public License
+Programming Language :: Python
+Programming Language :: Python :: 2
+Programming Language :: Python :: 2.7
+Programming Language :: Python :: 2 :: Only
+"""[:-1].split('\n'),
 )
